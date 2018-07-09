@@ -1,0 +1,1 @@
+# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/round/838198113036494/) [![License: CC BY-NC 3.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/3.0/)

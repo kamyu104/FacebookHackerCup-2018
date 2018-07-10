@@ -11,9 +11,9 @@ def ethan_searches_for_a_string():
     A = raw_input().strip()
     i = A.find(A[0], 1)
     if i != -1:
-        l = min(i, len(A)-i)
-        if A[:l] != A[i:i+l]:
-            return A[:i]+A
+        for j in xrange(len(A)):
+            if A[j] != A[j%i]:
+                return A[:i]+A
     return "Impossible"
 
 for case in xrange(input()):

@@ -14,8 +14,7 @@ def tourist():
     A = []
     for i in xrange(N):
         A.append(raw_input().strip())
-
-    start = (V-1) * K % N
+    start = (V-1)*K % N
     return " ".join([A[i] for i in itertools.chain(xrange(max(0, start+K-N)),
                                                    xrange(start, min(N, start+K)))])
 

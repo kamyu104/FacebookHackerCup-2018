@@ -12,7 +12,7 @@ def ethan_searches_for_a_string():
     i = A.find(A[0], 1)
     if i != -1:
         l = min(i, len(A)-i)
-        if A[i:i+l] != A[:l]:
+        if A[:l] != A[i:i+l]:
             return A[:i]+A
     return "Impossible"
 

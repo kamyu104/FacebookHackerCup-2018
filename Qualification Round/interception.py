@@ -3,7 +3,7 @@
 # Facebook Hacker Cup 2018 Qualification Round - Interception
 # https://www.facebook.com/hackercup/problem/175329729852444/
 #
-# Time:  O(N)
+# Time:  O(1)
 # Space: O(1)
 #
 

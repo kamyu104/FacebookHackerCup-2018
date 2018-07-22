@@ -3,12 +3,12 @@
 # Facebook Hacker Cup 2018 Round 1 - Platform Parkour
 # https://www.facebook.com/hackercup/problem/1892930427431211/
 #
-# Time:  O(N*M), could be improved to O(NlogZ + M)
+# Time:  O(N * (M + logZ))
 # Space: O(N)
 #
 
 EPS = 1e-6
-def check(N, H, U, D, x):
+def check(N, H, U, D, x):  # Time: O(N)
     a = H[0]-x
     b = H[0]+x
     for i in xrange(N-1):
@@ -24,6 +24,8 @@ def platform_parkour():
     H[0], H[1], W, X, Y, Z = map(int, raw_input().strip().split())
     for i in xrange(2, N):
         H[i] =(W*H[i-2]+X*H[i-1]+Y)%Z
+
+    # Time:  O(N*M)
     U, D = [float("inf")]*N, [float("inf")]*N
     for i in xrange(M):
         a, b, u, d = map(int, raw_input().strip().split())
@@ -36,7 +38,8 @@ def platform_parkour():
             U[j] = min(U[j], u)
             D[j] = min(D[j], d)
 
-    left, right = 0.0, 10e6
+    # Time:  O(NlogZ)
+    left, right = 0.0, float(max(H)-min(H))
     while left+EPS < right:
         mid = left + (right-left)/2
         if check(N, H, U, D, mid):

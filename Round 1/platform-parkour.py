@@ -9,12 +9,10 @@
 
 EPS = 1e-6
 def check(N, H, U, D, x):  # Time: O(N)
-    a = H[0]-x
-    b = H[0]+x
+    down, up = H[0]-x, H[0]+x
     for i in xrange(N-1):
-        a = max(a-D[i], H[i+1]-x)
-        b = min(b+U[i], H[i+1]+x)
-        if a > b:
+        down, up = max(down-D[i], H[i+1]-x), min(up+U[i], H[i+1]+x)
+        if down > up:
             return False
     return True
 

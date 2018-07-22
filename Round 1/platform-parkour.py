@@ -36,7 +36,7 @@ def platform_parkour():
             U[j] = min(U[j], u)
             D[j] = min(D[j], d)
 
-    left, right = float(0), 10e6
+    left, right = 0.0, 10e6
     while left+EPS < right:
         mid = left + (right-left)/2
         if check(N, H, U, D, mid):

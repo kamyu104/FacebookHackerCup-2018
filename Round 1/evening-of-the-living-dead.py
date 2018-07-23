@@ -94,10 +94,7 @@ def evening_of_the_living_dead():
             if safe_but_not_taller_than_h_prob:
                 p = prob(A, B, i-1, H[h-1]+1, H[h])
                 dp_safe[(i+1)%2][h] = add(dp_safe[(i+1)%2][h], mult(safe_but_not_taller_than_h_prob, p))
-    result = 0
-    for h in xrange(len(H)):
-        result = add(result, dp_safe[N%2][h])
-    return result
+    return reduce(add, dp_safe[N%2])
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, evening_of_the_living_dead())

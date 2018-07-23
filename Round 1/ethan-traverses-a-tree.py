@@ -42,22 +42,17 @@ def ethan_traverses_a_tree():
 
     result = [0]*N
     unlabeled_nodes = set(range(N))
-    possible = False
+    k = 0
     while unlabeled_nodes:
-        for label in xrange(1, K+1):
-            if not unlabeled_nodes:
-                if possible:
-                    break
-                return "Impossible"
-            node = unlabeled_nodes.pop()
-            result[node] = label
-            nei = orders[1][idxs[0][node]]
-            while result[nei] == 0:
-                unlabeled_nodes.discard(nei)
-                result[nei] = label
-                nei = orders[1][idxs[0][nei]]
-        possible = True
-    return " ".join(map(str, result))
+        node = unlabeled_nodes.pop()
+        result[node] = 1+(k%K)
+        nei = orders[1][idxs[0][node]]
+        while result[nei] == 0:
+            unlabeled_nodes.discard(nei)
+            result[nei] = 1+(k%K)
+            nei = orders[1][idxs[0][nei]]
+        k += 1
+    return "Impossible" if k < K else " ".join(map(str, result))
 
 import sys
 sys.setrecursionlimit(2000)

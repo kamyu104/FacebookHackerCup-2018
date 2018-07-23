@@ -88,12 +88,12 @@ def evening_of_the_living_dead():
                     dp_safe[(i+1)%2][h] = add(dp_safe[(i+1)%2][h], mult(dp_safe[i%2][h], p))
                     # new fence is taller
                     accu[h+1] = add(accu[h+1], dp_safe[i%2][h])  # accumulate
-        accu_p = 0
+        safe_but_not_taller_than_h_prob = 0
         for h in xrange(1, len(H)):
-            accu_p = add(accu_p, accu[h])
-            if accu_p:
+            safe_but_not_taller_than_h_prob = add(safe_but_not_taller_than_h_prob, accu[h])
+            if safe_but_not_taller_than_h_prob:
                 p = prob(A, B, i-1, H[h-1]+1, H[h])
-                dp_safe[(i+1)%2][h] = add(dp_safe[(i+1)%2][h], mult(accu_p, p))
+                dp_safe[(i+1)%2][h] = add(dp_safe[(i+1)%2][h], mult(safe_but_not_taller_than_h_prob, p))
     result = 0
     for h in xrange(len(H)):
         result = add(result, dp_safe[N%2][h])

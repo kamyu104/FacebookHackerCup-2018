@@ -1,4 +1,4 @@
-# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/round/838198113036494/) [![License: CC BY-NC 3.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/3.0/)
+# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) [![License: CC BY-NC 3.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/3.0/)
 
 Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
 

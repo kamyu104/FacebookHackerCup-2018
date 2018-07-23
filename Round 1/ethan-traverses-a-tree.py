@@ -41,14 +41,14 @@ def ethan_traverses_a_tree():
     idxs = map(invert_idx, orders)
 
     result = [0]*N
-    candidates = set(range(N))
     k = 0
-    while candidates:
-        node = candidates.pop()
+    nodes = set(range(N))
+    while nodes:
+        node = nodes.pop()
         result[node] = 1+(k%K)
         nei = orders[1][idxs[0][node]]
         while result[nei] == 0:
-            candidates.discard(nei)
+            nodes.discard(nei)
             result[nei] = 1+(k%K)
             nei = orders[1][idxs[0][nei]]
         k += 1

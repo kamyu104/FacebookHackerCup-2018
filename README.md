@@ -15,7 +15,7 @@ Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it 
 ## Round 1
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
-|1| [Let It Flow](https://www.facebook.com/hackercup/problem/180494849326631/)| [Python](./Round%201/let-it-flow.py)| _O(N)_ | _O(1)_ | Easy | | DP |
+|1| [Let It Flow](https://www.facebook.com/hackercup/problem/180494849326631/)| [Python](./Round%201/let-it-flow.py)| _O(N)_ | _O(W)_ | Easy | | DP |
 |2| [Ethan Traverses a Tree](https://www.facebook.com/hackercup/problem/232395994158286/)| [Python](./Round%201/ethan-traverses-a-tree.py)| _O(N)_ | _O(N)_ | Easy | | Graph |
 |3| [Platform Parkour](https://www.facebook.com/hackercup/problem/1892930427431211/)| [Python](./Round%201/platform-parkour.py)| _O(N * (M + logZ))_ | _O(N)_ | Medium | | Intervals |
 |4| [Evening of the Living Dead](https://www.facebook.com/hackercup/problem/359971574540051/)| [Python](./Round%201/evening-of-the-living-dead.py)| _O(N * M)_ | _O(N)_ | Hard | | DP, Probability |

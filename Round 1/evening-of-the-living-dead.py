@@ -42,7 +42,7 @@ def evening_of_the_living_dead():
     for _ in xrange(M):
         i, h = map(int, raw_input().strip().split())
         Y[i-1] = max(Y[i-1], h)
-    H = sorted(list(set([h for h in Y if h])))
+    H = sorted(list(set([0, float("inf")] + [h for h in Y if h])))
     for i in xrange(len(Y)):
         # normalized height to 0, 1, 2, ..., len(H)
         Y[i] = bisect.bisect_left(H, Y[i])

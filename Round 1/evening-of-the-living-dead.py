@@ -4,7 +4,7 @@
 # https:#www.facebook.com/hackercup/problem/359971574540051/
 #
 # Time:  O(N * M)
-# Space: O(N + M)
+# Space: O(N)
 #
 
 import bisect

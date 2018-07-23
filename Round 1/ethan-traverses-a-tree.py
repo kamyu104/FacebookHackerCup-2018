@@ -41,18 +41,18 @@ def ethan_traverses_a_tree():
     idxs = map(invert_idx, orders)
 
     result = [0]*N
-    k = 0
+    count = 0
     nodes = set(range(N))
     while nodes:
         node = nodes.pop()
-        result[node] = 1+(k%K)
+        result[node] = 1+(count%K)
         nei = orders[1][idxs[0][node]]
         while result[nei] == 0:
             nodes.discard(nei)
-            result[nei] = 1+(k%K)
+            result[nei] = 1+(count%K)
             nei = orders[1][idxs[0][nei]]
-        k += 1
-    return "Impossible" if k < K else " ".join(map(str, result))
+        count += 1
+    return "Impossible" if count < K else " ".join(map(str, result))
 
 import sys
 sys.setrecursionlimit(2000)

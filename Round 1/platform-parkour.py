@@ -8,6 +8,7 @@
 #
 
 EPS = 1e-6
+
 def check(N, H, U, D, x):  # Time: O(N)
     down, up = H[0]-x, H[0]+x
     for i in xrange(N-1):

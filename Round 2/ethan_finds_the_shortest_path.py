@@ -1,13 +1,13 @@
 # Copyright (c) 2019 kamyu. All rights reserved.
 #
-# Facebook Hacker Cup 2018 Round 2 - Ethan Path
+# Facebook Hacker Cup 2018 Round 2 - Ethan Finds the Shortest Path
 # https://www.facebook.com/hackercup/problem/988017871357549/
 #
 # Time:  O(N)
 # Space: O(1)
 #
 
-def ethan_path():
+def ethan_finds_the_shortest_path():
     N, K = map(int, raw_input().strip().split())
 
     result = ["0", "1"]
@@ -28,5 +28,5 @@ def ethan_path():
     return "\n".join(result)
 
 for case in xrange(input()):
-    print 'Case #%d: %s' % (case+1, ethan_path())
+    print 'Case #%d: %s' % (case+1, ethan_finds_the_shortest_path())
 

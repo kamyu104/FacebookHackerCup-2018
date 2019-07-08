@@ -23,8 +23,8 @@ def ethan_finds_the_shortest_path():
                 diff -= K
                 result.append((i, N, K))
                 break
-    return "\n".join([str(abs(diff)), str(len(result)),
-                      "\n".join(map(lambda x : "%d %d %d" % x, result))])
+    return "\n".join([str(abs(diff)), str(len(result))] +
+                     map(lambda x : "%d %d %d" % x, result))
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, ethan_finds_the_shortest_path())

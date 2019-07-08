@@ -10,22 +10,21 @@
 def ethan_finds_the_shortest_path():
     N, K = map(int, raw_input().strip().split())
 
-    result = ["0", "1"]
-    diff = K
-    result.append("%d %d %d" % (1, N, K))
+    result = []
+    diff = K if N >= 3 and K >= 3 else 0
+    result.append((1, N, K))
     K -= 1
-    if not (N-1 >= 2 and K >= 2):
-        return "\n".join(result)
-    for i in xrange(2, N):
-        diff -= K
-        result.append("%d %d %d" % (i-1, i, K))
-        K -= 1
-        if K == 1 or i == N-1:
+    if diff:
+        for i in xrange(2, N):
             diff -= K
-            result.append("%d %d %d" % (i, N, K))
-            break
-    result[0], result[1] = str(abs(diff)), str(len(result)-2)
-    return "\n".join(result)
+            result.append((i-1, i, K))
+            K -= 1
+            if K == 1 or i == N-1:
+                diff -= K
+                result.append((i, N, K))
+                break
+    return "\n".join([str(abs(diff)), str(len(result)),
+                      "\n".join(map(lambda x : "%d %d %d" % x, result))])
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, ethan_finds_the_shortest_path())

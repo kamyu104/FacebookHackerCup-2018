@@ -20,7 +20,6 @@ def jacks_candy_shop():
 
     result = 0
     max_heaps = [[] for _ in xrange(N)]
-    cnt = 0
     stk = [(0, (0))]
     while stk:
         step, args = stk.pop()
@@ -42,8 +41,6 @@ def jacks_candy_shop():
             while count[i] and max_heaps[i]:
                 count[i] -= 1
                 result += -heappop(max_heaps[i])
-            cnt += 1
-            print cnt
     return result
 
 for case in xrange(input()):

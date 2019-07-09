@@ -10,18 +10,22 @@
 from sys import setrecursionlimit
 from heapq import heappush, heappop
 
-def jacks_candy_shop_helper(adj, i, C, max_heaps, result):
+def jacks_candy_shop_helper(adj, i, C):
+    result = 0
+    max_heap = []
     for j in xrange(len(adj[i])):
-        jacks_candy_shop_helper(adj, j, C, max_heaps, result)
-        if len(max_heaps[i]) > len(max_heaps[j]):
-            max_heaps[i], max_heaps[j] = max_heaps[j], max_heaps[i]
-        while max_heaps[j]:
-            heappush(max_heaps[i], heappop(max_heaps[j]))
+        cur_max, remain = jacks_candy_shop_helper(adj, adj[i][j], C)
+        result += cur_max
+        if len(max_heap) > len(remain):
+            max_heap, remain = remain, max_heap
+        while remain:
+            heappush(max_heap, heappop(remain))
 
-    heappush(max_heaps[i], -i)
-    while C[i] and max_heaps[i]:
+    heappush(max_heap, -i)
+    while C[i] and max_heap:
         C[i] -= 1
-        result[0] += -heappop(max_heaps[i])
+        result += -heappop(max_heap)
+    return result, max_heap
 
 def jacks_candy_shop():
     N, M, A, B = map(int, raw_input().strip().split())
@@ -33,10 +37,7 @@ def jacks_candy_shop():
     for i in xrange(M):
         C[(A*i+B) % N] += 1
     
-    result = [0]
-    max_heaps = [[] for _ in xrange(N)]
-    jacks_candy_shop_helper(adj, 0, C, max_heaps, result)
-    return result[0]
+    return jacks_candy_shop_helper(adj, 0, C,)[0]
 
 setrecursionlimit(200000)
 for case in xrange(input()):

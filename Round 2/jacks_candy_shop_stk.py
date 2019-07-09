@@ -34,7 +34,8 @@ def jacks_candy_shop():
             i, j = args
             if len(max_heaps[i]) < len(max_heaps[j]):
                 max_heaps[i], max_heaps[j] = max_heaps[j], max_heaps[i]
-            while max_heaps[j]:
+            while max_heaps[j]:  # each candy would be moved at most O(logN) times,
+                                 # and each move also costs O(logN)
                 heappush(max_heaps[i], heappop(max_heaps[j]))
             max_heaps.pop(j)
         else:

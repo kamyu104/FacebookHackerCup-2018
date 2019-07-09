@@ -59,7 +59,8 @@ uint64_t jacks_candy_shop() {
                 if (max_heaps[i].size() < max_heaps[j].size()) {
                     swap(max_heaps[i], max_heaps[j]);
                 }
-                while (!max_heaps[j].empty()) {
+                while (!max_heaps[j].empty()) {  // each candy would be moved at most O(logN) times,
+                                                 // and each move also costs O(logN)
                     max_heaps[i].emplace(max_heaps[j].top()); max_heaps[j].pop();
                 }
                 max_heaps.erase(j);

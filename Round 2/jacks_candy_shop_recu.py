@@ -18,7 +18,8 @@ def jacks_candy_shop_helper(adj, i, count):
         result += curr_max
         if len(max_heap) < len(remain):
             max_heap, remain = remain, max_heap
-        while remain:
+        while remain:  # each candy would be moved at most O(logN) times,
+                       # and each move also costs O(logN)
             heappush(max_heap, heappop(remain))
 
     heappush(max_heap, -i)

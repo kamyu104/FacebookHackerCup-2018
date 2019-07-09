@@ -31,8 +31,7 @@ def jacks_candy_shop():
     N, M, A, B = map(int, raw_input().strip().split())
     adj = [[] for _ in xrange(N)]
     for i in xrange(1, N):
-        p = input()
-        adj[p].append(i)
+        adj[input()].append(i)
     count = [0]*N
     for i in xrange(M):
         count[(A*i+B) % N] += 1

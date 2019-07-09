@@ -16,7 +16,7 @@ def jacks_candy_shop_helper(adj, i, count):
     for j in adj[i]:
         curr_max, remain = jacks_candy_shop_helper(adj, j, count)
         result += curr_max
-        if len(max_heap) > len(remain):
+        if len(max_heap) < len(remain):
             max_heap, remain = remain, max_heap
         while remain:
             heappush(max_heap, heappop(remain))

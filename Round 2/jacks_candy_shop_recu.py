@@ -38,6 +38,6 @@ def jacks_candy_shop():
     
     return jacks_candy_shop_helper(adj, 0, count)[0]
 
-setrecursionlimit(200000)  # ulimit -S -s unlimited
+setrecursionlimit(200000+2)  # ulimit -S -s unlimited
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, jacks_candy_shop())

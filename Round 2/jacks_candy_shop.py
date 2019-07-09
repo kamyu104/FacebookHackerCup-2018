@@ -31,7 +31,7 @@ def jacks_candy_shop():
                 stk.append((0, (j)))
         elif step == 1:
             i, j = args
-            if len(max_heaps[i]) > len(max_heaps[j]):
+            if len(max_heaps[i]) < len(max_heaps[j]):
                 max_heaps[i], max_heaps[j] = max_heaps[j], max_heaps[i]
             while max_heaps[j]:
                 heappush(max_heaps[i], heappop(max_heaps[j]))

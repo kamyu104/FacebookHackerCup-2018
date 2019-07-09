@@ -13,8 +13,8 @@ from heapq import heappush, heappop
 def jacks_candy_shop_helper(adj, i, C):
     result = 0
     max_heap = []
-    for j in xrange(len(adj[i])):
-        cur_max, remain = jacks_candy_shop_helper(adj, adj[i][j], C)
+    for j in adj[i]:
+        cur_max, remain = jacks_candy_shop_helper(adj, j, C)
         result += cur_max
         if len(max_heap) > len(remain):
             max_heap, remain = remain, max_heap

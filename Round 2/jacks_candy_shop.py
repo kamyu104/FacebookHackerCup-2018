@@ -10,11 +10,11 @@
 from sys import setrecursionlimit
 from heapq import heappush, heappop
 
-def jacks_candy_shop_helper(adj, i, C):
+def jacks_candy_shop_helper(adj, i, count):
     result = 0
     max_heap = []
     for j in adj[i]:
-        curr_max, remain = jacks_candy_shop_helper(adj, j, C)
+        curr_max, remain = jacks_candy_shop_helper(adj, j, count)
         result += curr_max
         if len(max_heap) > len(remain):
             max_heap, remain = remain, max_heap
@@ -22,8 +22,8 @@ def jacks_candy_shop_helper(adj, i, C):
             heappush(max_heap, heappop(remain))
 
     heappush(max_heap, -i)
-    while C[i] and max_heap:
-        C[i] -= 1
+    while count[i] and max_heap:
+        count[i] -= 1
         result += -heappop(max_heap)
     return result, max_heap
 
@@ -33,11 +33,11 @@ def jacks_candy_shop():
     for i in xrange(1, N):
         p = input()
         adj[p].append(i)
-    C = [0]*N
+    count = [0]*N
     for i in xrange(M):
-        C[(A*i+B) % N] += 1
+        count[(A*i+B) % N] += 1
     
-    return jacks_candy_shop_helper(adj, 0, C,)[0]
+    return jacks_candy_shop_helper(adj, 0, count)[0]
 
 setrecursionlimit(200000)
 for case in xrange(input()):

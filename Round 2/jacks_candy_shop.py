@@ -7,8 +7,9 @@
 # Space: O(N)
 #
 
-from heapq import heappush, heappop
 from functools import partial
+from collections import defaultdict
+from heapq import heappush, heappop
 
 def divide(stk, adj, count, max_heaps, i, result):
     stk.append(partial(conquer, count, max_heaps, i, result))
@@ -21,6 +22,7 @@ def merge(max_heaps, i, j):
         max_heaps[i], max_heaps[j] = max_heaps[j], max_heaps[i]
     while max_heaps[j]:
         heappush(max_heaps[i], heappop(max_heaps[j]))
+    max_heaps.pop(j)
 
 def conquer(count, max_heaps, i, result):
     heappush(max_heaps[i], -i)
@@ -38,11 +40,12 @@ def jacks_candy_shop():
         count[(A*i+B) % N] += 1
 
     result = [0]
-    max_heaps = [[] for _ in xrange(N)]
+    max_heaps = defaultdict(list)
     stk = []
     stk.append(partial(divide, stk, adj, count, max_heaps, 0, result))
     while stk:
         stk.pop()()
+    max_heaps.pop(0)
     return result[0]
 
 for case in xrange(input()):

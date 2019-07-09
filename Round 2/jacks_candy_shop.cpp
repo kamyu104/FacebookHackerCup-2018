@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include <queue>
 #include <tuple>
 
@@ -18,6 +19,7 @@ using std::cin;
 using std::cout;
 using std::endl;
 using std::vector;
+using std::unordered_map;
 using std::priority_queue;
 using std::tie;
 using std::pair;
@@ -37,7 +39,7 @@ uint64_t jacks_candy_shop() {
     }
   
     uint64_t result = 0ull;
-    vector<priority_queue<int>> max_heaps(N);
+    unordered_map<int, priority_queue<int>> max_heaps;
     vector<pair<int, vector<int>>> stk = {{0, {0}}};
     while (!stk.empty()) {
         int step; vector<int> args;
@@ -57,6 +59,7 @@ uint64_t jacks_candy_shop() {
             while (!max_heaps[j].empty()) {
                 max_heaps[i].emplace(max_heaps[j].top()); max_heaps[j].pop();
             }
+            max_heaps.erase(j);
         } else {
             int i = args[0];
             max_heaps[i].emplace(i);
@@ -66,6 +69,7 @@ uint64_t jacks_candy_shop() {
             }
         }
     }
+    max_heaps.erase(0);
     return result;
 }
 

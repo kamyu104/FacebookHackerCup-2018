@@ -1,4 +1,3 @@
-
 # Copyright (c) 2019 kamyu. All rights reserved.
 #
 # Facebook Hacker Cup 2018 Round 2 - Replay Value

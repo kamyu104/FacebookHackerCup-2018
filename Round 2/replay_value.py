@@ -21,10 +21,9 @@ def replay_value():
             E = i
         emitter[1] = i
     if S < E:  # make S higher than E
-        S = N+1 - S
-        E = N+1 - E
+        S, E = N+1-S, N+1-E
         for emitter in emitters:  # mirror Y
-            emitter[1] = N+1 - emitter[1]
+            emitter[1] = N+1-emitter[1]
     emitters.sort(), emitters.pop(), emitters.pop()
 
     dp = [[[[[0 for _ in xrange(N+2)] for _ in xrange(N+2)] for _ in xrange(N+2)] for _ in xrange(N+2)] for _ in xrange(2)]

@@ -77,6 +77,12 @@ class SegmentTree(object):
         q1 = self.query(self.left(idx),l,mid,a,b)
         q2 = self.query(self.right(idx),mid+1,r,a,b)
         return min(q1,q2)
+    
+    def showData(self):
+        showList = []
+        for i in xrange(1,N+1):
+            showList += [self.query(1, 1, self.N, i, i)]
+        print (showList)
 
 def fossil_fuels():
     N, S, M, K = map(int, raw_input().strip().split())

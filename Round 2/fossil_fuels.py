@@ -34,7 +34,7 @@ class SegmentTree(object):
 
     # update with O(logN) (Normal segment tree without lazy update will take O(NlogN) for each update)
     def update(self, idx, l, r, a, b, val): # update(1, 1, N, a, b, v) for update val v to [a,b]
-        l, r = l+1, r+1
+        a, b = a+1, b+1
         if self.flag[idx] == True:
             self.st[idx] = self.lazy[idx]
             self.flag[idx] = False
@@ -62,7 +62,7 @@ class SegmentTree(object):
 
     # query with O(lg N)
     def query(self, idx, l, r, a, b): # query(1, 1, N, a, b) for query min of [a,b]
-        l, r = l+1, r+1
+        a, b = a+1, b+1
         if self.flag[idx] == True:
             self.st[idx] = self.lazy[idx]
             self.flag[idx] = False

@@ -1,10 +1,11 @@
-# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-CC%203.0-blue.svg)](https://creativecommons.org/licenses/by-nc/3.0/) ![Progress](https://img.shields.io/badge/progress-7%20%2F%2021-ff69b4.svg)
+# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-CC%203.0-blue.svg)](https://creativecommons.org/licenses/by-nc/3.0/) ![Progress](https://img.shields.io/badge/progress-11%20%2F%2021-ff69b4.svg)
 
 
 Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
 
 * [Qualification Round](https://github.com/kamyu104/FacebookHackerCup-2018#qualification-round)
 * [Round 1](https://github.com/kamyu104/FacebookHackerCup-2018#round-1)
+* [Round 1](https://github.com/kamyu104/FacebookHackerCup-2018#round-2)
 
 ## Qualification Round
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -20,3 +21,11 @@ Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it 
 |2| [Ethan Traverses a Tree](https://www.facebook.com/hackercup/problem/232395994158286/)| [Python](./Round%201/ethan-traverses-a-tree.py)| _O(N)_ | _O(N)_ | Easy | | Graph |
 |3| [Platform Parkour](https://www.facebook.com/hackercup/problem/1892930427431211/)| [Python](./Round%201/platform-parkour.py)| _O(N * (M + logZ))_ | _O(N)_ | Medium | | Intervals |
 |4| [Evening of the Living Dead](https://www.facebook.com/hackercup/problem/359971574540051/)| [Python](./Round%201/evening-of-the-living-dead.py)| _O(N * M)_ | _O(N)_ | Hard | | DP, Probability |
+
+## Round 2
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|1| [Ethan Finds the Shortest Path](https://www.facebook.com/hackercup/problem/988017871357549/)| [Python](./Round%202/ethan_finds_the_shortest_path.py)| _O(N)_ | _O(1)_ | Easy | | Graph |
+|2| [Jack's Candy Shop](https://www.facebook.com/hackercup/problem/638251746380051/)| [Python](./Round%202/jacks_candy_shop.py)| _O(N * (logN)^2)_ | _O(N)_ | Medium | | Heap, Stack, Recursion |
+|3| [Replay Value](https://www.facebook.com/hackercup/problem/271442536778669/)| [Python](./Round%202/replay_value.py)| _O(N^5)_ | _O(N^4)_ | Hard | | DP |
+|4| [Fossil Fuels](https://www.facebook.com/hackercup/problem/469838700128124/)| [Python](./Round%202/fossil_fuels.py)| _O(NlogN)_ | _O(N)_ | Hard | | DP, Mono Deque, Segment Tree, RMQ |

@@ -9,77 +9,77 @@
 
 from collections import deque
 
-# reference: https://github.com/TheAlgorithms/Python/blob/05e5172093dbd0633ce83044603073dd2be675c4/data_structures/binary_tree/lazy_segment_tree.py
 class SegmentTree(object):
-    
     def __init__(self, N, query_fn=min, default_val=float("inf")):
         self.N = N
+        self.H = (N-1).bit_length()
         self.query_fn = query_fn
         self.default_val = default_val
-        self.st = [default_val for i in range(0,4*N)] # approximate the overall size of segment tree with array N
-        self.lazy = [None for i in range(0,4*N)] # create array to store lazy update
-        
-    def left(self, idx):
-        return idx*2
+        self.tree = [default_val] * (2 * N)
+        self.lazy = [None] * N
 
-    def right(self, idx):
-        return idx*2 + 1
+    def __apply(self, x, val):
+        self.tree[x] = self.query_fn(self.tree[x], val) if x < self.N else val
+        if x < self.N:
+            self.lazy[x] = self.query_fn(self.lazy[x], val) if self.lazy[x] is not None else val
 
-    def build(self, idx, l, r, A):
-        if l==r:
-            self.st[idx] = A[l-1]
-        else :
-            mid = (l+r)//2
-            self.build(self.left(idx),l,mid, A)
-            self.build(self.right(idx),mid+1,r, A)
-            self.st[idx] = self.default_val(self.st[self.left(idx)] , self.st[self.right(idx)])
+    def __pull(self, x):
+        while x > 1:
+            x //= 2
+            self.tree[x] = self.query_fn(self.tree[x*2], self.tree[x*2 + 1])
+            if self.lazy[x] is not None:
+                self.tree[x] = self.query_fn(self.tree[x], self.lazy[x])
 
-    # update with O(logN) (Normal segment tree without lazy update will take O(NlogN) for each update)
-    def update(self, a, b, val, idx=1, l=1, r=None): # update(a, b, v) for update val v to [a,b]
-        if r is None:
-            r = self.N
-        if self.lazy[idx] is not None:
-            self.st[idx] = self.lazy[idx]
-            if l!=r:
-                self.lazy[self.left(idx)] = self.lazy[idx]
-                self.lazy[self.right(idx)] = self.lazy[idx]
-            self.lazy[idx] = None
-            
-        if r < a or l > b:
-            return
-        if l >= a and r <= b :
-            self.st[idx] = val
-            if l!=r:
-                self.lazy[self.left(idx)] = val
-                self.lazy[self.right(idx)] = val
-            return
-        mid = (l+r)//2
-        self.update(a,b,val,self.left(idx),l,mid)
-        self.update(a,b,val,self.right(idx),mid+1,r)
-        self.st[idx] = self.query_fn(self.st[self.left(idx)] , self.st[self.right(idx)])
+    def __push(self, x):
+        n = 2**self.H
+        while n != 1:
+            y = x // n
+            if self.lazy[y] is not None:
+                self.__apply(y*2, self.lazy[y])
+                self.__apply(y*2 + 1, self.lazy[y])
+                self.lazy[y] = None
+            n //= 2
 
-    # query with O(logN)
-    def query(self, a, b, idx=1, l=1, r=None): # query(a, b) for query_fn of [a,b]
-        if r is None:
-            r = self.N
-        if self.lazy[idx] is not None:
-            self.st[idx] = self.lazy[idx]
-            if l != r:
-                self.lazy[self.left(idx)] = self.lazy[idx]
-                self.lazy[self.right(idx)] = self.lazy[idx]
-        if r < a or l > b:
-            return self.default_val
-        if l >= a and r <= b:
-            return self.st[idx]
-        mid = (l+r)//2
-        q1 = self.query(a,b,self.left(idx),l,mid)
-        q2 = self.query(a,b,self.right(idx),mid+1,r)
-        return self.query_fn(q1,q2)
+    def update(self, L, R, h):
+        L += self.N
+        R += self.N
+        L0, R0 = L, R
+        while L <= R:
+            if L & 1:
+                self.__apply(L, h)
+                L += 1
+            if R & 1 == 0:
+                self.__apply(R, h)
+                R -= 1
+            L //= 2
+            R //= 2
+        self.__pull(L0)
+        self.__pull(R0)
+
+    def query(self, L, R):
+        result = self.default_val
+        if L > R:
+            return result
+
+        L += self.N
+        R += self.N
+        self.__push(L)
+        self.__push(R)
+        while L <= R:
+            if L & 1:
+                result = self.query_fn(result, self.tree[L])
+                L += 1
+            if R & 1 == 0:
+                result = self.query_fn(result, self.tree[R])
+                R -= 1
+            L //= 2
+            R //= 2
+        return result
     
     def showData(self):
         showList = []
-        for i in xrange(1,self.N+1):
-            showList += [self.query(i, i, 1, 1, self.N)]
+        for i in xrange(self.N):
+            showList += [self.query(i, i)]
         print (showList)
 
 def fossil_fuels():
@@ -115,12 +115,12 @@ def fossil_fuels():
         else:
             while max_D and D[max_D[-1]] <= D[i]:  # keep descending
                 r = max_D.pop()
-                segment_tree.update(r+1, r+1, float("inf"))
+                segment_tree.update(r, r, float("inf"))
             if max_D:
-                segment_tree.update(i+1, i+1, dp[max_D[-1]+1] + S + D[i])
+                segment_tree.update(i, i, dp[max_D[-1]+1] + S + D[i])
             max_D.append(i)
             dp[i+1] = min(dp[(j-1)+1] + S + D[max_D[0]],
-                          segment_tree.query((max_D[0]+1)+1, i+1))
+                          segment_tree.query(max_D[0]+1, i))
     return dp[N]
 
 for case in xrange(input()):

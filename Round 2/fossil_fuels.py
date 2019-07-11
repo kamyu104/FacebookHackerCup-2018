@@ -19,7 +19,7 @@ class SegmentTree(object):
         self.query_fn = lambda x, y: query_fn(x, y) if x is not None else y
         self.update_fn = update_fn
         self.default_val = default_val
-        self.tree = [None] * (2 * N)
+        self.tree = [default_val] * (2 * N)
         self.lazy = [None] * N
 
     def __apply(self, x, val):

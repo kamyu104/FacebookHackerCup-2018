@@ -27,23 +27,13 @@ class SegmentTree(object):
         if x < self.N:
             self.lazy[x] = self.update_fn(self.lazy[x], val)
 
-    def __pull(self, x):
-        while x > 1:
-            x //= 2
-            self.tree[x] = self.query_fn(self.tree[x*2], self.tree[x*2 + 1])
-            self.tree[x] = self.query_fn(self.tree[x], self.lazy[x])
-
-    def __push(self, x):
-        n = 2**self.H
-        while n != 1:
-            y = x // n
-            if self.lazy[y] is not None:
-                self.__apply(y*2, self.lazy[y])
-                self.__apply(y*2 + 1, self.lazy[y])
-                self.lazy[y] = None
-            n //= 2
-
     def update(self, L, R, h):
+        def pull(x):
+            while x > 1:
+                x //= 2
+                self.tree[x] = self.query_fn(self.tree[x*2], self.tree[x*2 + 1])
+                self.tree[x] = self.query_fn(self.tree[x], self.lazy[x])
+
         L += self.N
         R += self.N
         L0, R0 = L, R
@@ -56,18 +46,28 @@ class SegmentTree(object):
                 R -= 1
             L //= 2
             R //= 2
-        self.__pull(L0)
-        self.__pull(R0)
+        pull(L0)
+        pull(R0)
 
     def query(self, L, R):
+        def push(x):
+            n = 2**self.H
+            while n != 1:
+                y = x // n
+                if self.lazy[y] is not None:
+                    self.__apply(y*2, self.lazy[y])
+                    self.__apply(y*2 + 1, self.lazy[y])
+                    self.lazy[y] = None
+                n //= 2
+
         result = self.default_val
         if L > R:
             return result
 
         L += self.N
         R += self.N
-        self.__push(L)
-        self.__push(R)
+        push(L)
+        push(R)
         while L <= R:
             if L & 1:
                 result = self.query_fn(result, self.tree[L])
@@ -79,11 +79,11 @@ class SegmentTree(object):
             R //= 2
         return result
     
-    def showData(self):
+    def data(self):
         showList = []
         for i in xrange(self.N):
-            showList += [self.query(i, i)]
-        print (showList)
+            showList.append(self.query(i, i))
+        return showList
 
 def fossil_fuels():
     N, S, M, K = map(int, raw_input().strip().split())

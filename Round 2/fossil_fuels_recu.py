@@ -102,22 +102,23 @@ def fossil_fuels():
     j = 0
     segment_tree = SegmentTree([float("inf")]*N)
     for i in xrange(N):
-        while max_D and P[max_D[0]]+2*M < P[i]:
+        while max_D and P[max_D[0]] + 2*M < P[i]:
             max_D.popleft()
-        while P[j]+2*M < P[i]:
+        while P[j] + 2*M < P[i]:
             j += 1
         if not max_D:
-            dp[i+1] = dp[i]+S+D[i]
             max_D.append(i)
+            dp[i+1] = dp[i] + S + D[i]
         else:
             while max_D and D[max_D[-1]] <= D[i]:  # keep descending
                 r = max_D.pop()
                 segment_tree.update(r, float("inf"))
             if max_D:
-                segment_tree.update(i, dp[max_D[-1]+1]+S+D[i])
+                segment_tree.update(i, dp[max_D[-1]+1] + S + D[i])  # dig D[i] with dp[max_D[-1]+1]
             max_D.append(i)
-            dp[i+1] = min(dp[(j-1)+1]+S+D[max_D[0]],
-                          segment_tree.query(max_D[0]+1, i))
+            dp[i+1] = min(dp[(j-1)+1] + S + D[max_D[0]],      # min(dig max D with dp[j-1],
+                          segment_tree.query(max_D[0]+1, i))  #     min(dig less than max D
+                                                              #         but greater than D[i]))
     return dp[N]
 
 for case in xrange(input()):

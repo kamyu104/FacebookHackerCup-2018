@@ -80,7 +80,7 @@ class SegmentTree(object):
     
     def showData(self):
         showList = []
-        for i in xrange(1,N+1):
+        for i in xrange(1,self.N+1):
             showList += [self.query(1, 1, self.N, i, i)]
         print (showList)
 

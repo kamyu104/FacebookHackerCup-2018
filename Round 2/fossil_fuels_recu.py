@@ -110,7 +110,7 @@ def fossil_fuels():
             dp[i+1] = dp[i]+S+D[i]
             max_D.append(i)
         else:
-            while max_D and D[max_D[-1]] <= D[i]:  # keep descrighting
+            while max_D and D[max_D[-1]] <= D[i]:  # keep descending
                 r = max_D.pop()
                 segment_tree.update(r, float("inf"))
             if max_D:

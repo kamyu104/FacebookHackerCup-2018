@@ -112,7 +112,7 @@ def fossil_fuels():
         else:
             while max_D and D[max_D[-1]] <= D[i]:  # keep descending
                 r = max_D.pop()
-                segment_tree.update(r, float("inf"))
+                segment_tree.update(r, float("inf"))  # remove impossible candidate costs
             if max_D:
                 segment_tree.update(i, dp[max_D[-1]+1] + S + D[i])  # dig D[i] with dp[max_D[-1]+1]
             max_D.append(i)

@@ -10,18 +10,22 @@
 from collections import deque
 
 class SegmentTree(object):
-    def __init__(self, N, query_fn=min, default_val=float("inf")):
+    def __init__(self, N,
+                 query_fn=min,
+                 update_fn=lambda x, y: y,
+                 default_val=float("inf")):
         self.N = N
         self.H = (N-1).bit_length()
-        self.query_fn = query_fn
+        self.query_fn = lambda x, y: query_fn(x, y) if x is not None else y
+        self.update_fn = update_fn
         self.default_val = default_val
         self.tree = [default_val] * (2 * N)
         self.lazy = [None] * N
 
     def __apply(self, x, val):
-        self.tree[x] = self.query_fn(self.tree[x], val) if x < self.N else val
+        self.tree[x] = self.query_fn(self.tree[x], val) if x < self.N else self.update_fn(self.tree[x], val)
         if x < self.N:
-            self.lazy[x] = self.query_fn(self.lazy[x], val) if self.lazy[x] is not None else val
+            self.lazy[x] = self.query_fn(self.lazy[x], val)
 
     def __pull(self, x):
         while x > 1:

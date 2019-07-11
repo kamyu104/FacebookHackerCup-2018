@@ -34,7 +34,6 @@ class SegmentTree(object):
 
     # update with O(logN) (Normal segment tree without lazy update will take O(NlogN) for each update)
     def update(self, idx, l, r, a, b, val): # update(1, 1, N, a, b, v) for update val v to [a,b]
-        a, b = a+1, b+1
         if self.flag[idx] == True:
             self.st[idx] = self.lazy[idx]
             self.flag[idx] = False
@@ -60,9 +59,8 @@ class SegmentTree(object):
         self.st[idx] = min(self.st[self.left(idx)] , self.st[self.right(idx)])
         return True
 
-    # query with O(lg N)
+    # query with O(logN)
     def query(self, idx, l, r, a, b): # query(1, 1, N, a, b) for query min of [a,b]
-        a, b = a+1, b+1
         if self.flag[idx] == True:
             self.st[idx] = self.lazy[idx]
             self.flag[idx] = False
@@ -113,12 +111,12 @@ def fossil_fuels():
         else:
             while max_D and D[max_D[-1]] <= D[i]:  # keep descending
                 r = max_D.pop()
-                segment_tree.update(1, 1, N, r, r, float("inf"))
+                segment_tree.update(1, 1, N, r+1, r+1, float("inf"))
             if max_D:
-                segment_tree.update(1, 1, N, i, i, dp[max_D[-1]+1] + S + D[i])
+                segment_tree.update(1, 1, N, i+1, i+1, dp[max_D[-1]+1] + S + D[i])
             max_D.append(i)
             dp[i+1] = min(dp[(j-1)+1] + S + D[max_D[0]],
-                          segment_tree.query(1, 1, N, max_D[0]+1, i))
+                          segment_tree.query(1, 1, N, (max_D[0]+1)+1, i+1))
     return dp[N]
 
 for case in xrange(input()):

@@ -116,8 +116,8 @@ def fossil_fuels():
             if max_D:
                 segment_tree.update(i, dp[max_D[-1]+1] + S + D[i])  # dig D[i] with dp[max_D[-1]+1]
             max_D.append(i)
-            dp[i+1] = min(dp[(j-1)+1] + S + D[max_D[0]],      # min(dig max D with dp[j-1],
-                          segment_tree.query(max_D[0]+1, i))  #     min(dig less than max D
+            dp[i+1] = min(dp[(j-1)+1] + S + D[max_D[0]],      # min(dig max{D[j..i]} with dp[j-1],
+                          segment_tree.query(max_D[0]+1, i))  #     min(dig less than max{D[j..i]}
                                                               #         but greater than D[i]))
     return dp[N]
 

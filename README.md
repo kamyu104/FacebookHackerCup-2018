@@ -27,5 +27,5 @@ Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it 
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |1| [Ethan Finds the Shortest Path](https://www.facebook.com/hackercup/problem/988017871357549/)| [Python](./Round%202/ethan_finds_the_shortest_path.py)| _O(N)_ | _O(1)_ | Easy | | Graph |
 |2| [Jack's Candy Shop](https://www.facebook.com/hackercup/problem/638251746380051/)| [Python](./Round%202/jacks_candy_shop.py)| _O(N * (logN)^2)_ | _O(N)_ | Medium | | Heap, Stack, Recursion |
-|3| [Replay Value](https://www.facebook.com/hackercup/problem/271442536778669/)| [Python](./Round%202/replay_value.py)| _O(N^5)_ | _O(N^4)_ | Hard | | DP |
-|4| [Fossil Fuels](https://www.facebook.com/hackercup/problem/469838700128124/)| [Python](./Round%202/fossil_fuels.py)| _O(NlogN)_ | _O(N)_ | Hard | | DP, Mono Deque, Segment Tree, RMQ |
+|3| [Replay Value](https://www.facebook.com/hackercup/problem/271442536778669/)| [PyPy](./Round%202/replay_value.py)| _O(N^5)_ | _O(N^4)_ | Hard | | DP |
+|4| [Fossil Fuels](https://www.facebook.com/hackercup/problem/469838700128124/)| [PyPy](./Round%202/fossil_fuels.py)| _O(NlogN)_ | _O(N)_ | Hard | | DP, Mono Deque, Segment Tree, RMQ |

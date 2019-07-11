@@ -23,7 +23,7 @@ class SegmentTree(object):
         self.lazy = [None] * N
 
     def __apply(self, x, val):
-        self.tree[x] = self.query_fn(self.tree[x], val) if x < self.N else self.update_fn(self.tree[x], val)
+        self.tree[x] = self.update_fn(self.tree[x], val)
         if x < self.N:
             self.lazy[x] = self.query_fn(self.lazy[x], val)
 

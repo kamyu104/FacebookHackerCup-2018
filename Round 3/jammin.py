@@ -18,7 +18,7 @@ def jammin():
             curr += 1
             if  curr >= 2 or can_pick_past:
                 curr += past
-                past, is_just_placed = 0, 0
+                past, can_pick_past = 0, False
             result = max(result, curr)
         elif C[i] == '#' and C[i+1] != '#':  # 1 barrier
             if curr < 2:

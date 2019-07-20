@@ -11,23 +11,23 @@ def jammin():
     C = list(raw_input())
     C += [' ', ' ']
 
-    result, curr, past, past_reachable = 0, 0, 0, 0
+    result, curr, past, can_pick_past = 0, 0, 0, False
     i = 0
     while i < len(C):
         if C[i] == '*':
             curr += 1
-            if  curr >= 2 or past_reachable:
+            if  curr >= 2 or can_pick_past:
                 curr += past
-                past, past_reachable = 0, 0
+                past, is_just_placed = 0, 0
             result = max(result, curr)
         elif C[i] == '#' and C[i+1] != '#':  # 1 barrier
             if curr < 2:
                 if C[i+1] == '*':
-                    past_reachable = 0
+                    can_pick_past = False
                 elif curr:  # place one, and pick back later if possible
                     curr -= 1
                     past += 1
-                    past_reachable = 1
+                    can_pick_past = True
                 else:
                     break  # stop
         elif C[i] == '#' and C[i+1] == '#' and C[i+2] != '#':  # 2 barriers

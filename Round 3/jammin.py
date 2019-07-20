@@ -24,7 +24,7 @@ def jammin():
             if curr < 2:
                 if C[i+1] == '*':
                     can_pick_past = False
-                elif curr:  # place one, and pick back later if possible
+                elif curr:  # place one, and pick back later if find next jammer
                     curr -= 1
                     past += 1
                     can_pick_past = True

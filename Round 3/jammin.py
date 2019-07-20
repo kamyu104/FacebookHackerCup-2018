@@ -9,7 +9,7 @@
 
 def jammin():
     C = list(raw_input())
-    C += [' ', ' ']
+    C += [' ']*2
 
     result, curr, past, can_pick_past = 0, 0, 0, False
     i = 0

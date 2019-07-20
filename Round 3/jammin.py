@@ -16,7 +16,7 @@ def jammin():
     while i < len(C):
         if C[i] == '*':
             curr += 1
-            if  curr >= 2 or can_pick_past:
+            if curr >= 2 or can_pick_past:
                 curr += past
                 past, can_pick_past = 0, False
             result = max(result, curr)

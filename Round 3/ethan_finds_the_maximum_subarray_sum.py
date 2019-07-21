@@ -14,7 +14,7 @@ def ethan_finds_the_maximum_subarray_sum():
     min_ethan_m = max(max(B), 0)
     N = (2*M-1)-int(B[-1] < 0)  # exclude last negative value
     result = 0
-    for ethan_m in xrange(min_ethan_m, N*K+1):  # enumerate every possible ethan's answer
+    for ethan_m in xrange(min_ethan_m, (N-int(B[0] < 0))*K+1):  # enumerate every possible ethan's answer
         max_m, m = 0, 0
         for i in xrange(int(B[0] < 0), N):  # greedily insert values, exclude first negative value if it exists
             j, is_given_value = divmod(i+1, 2)

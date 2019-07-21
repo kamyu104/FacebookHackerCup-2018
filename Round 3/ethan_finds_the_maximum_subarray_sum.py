@@ -3,7 +3,7 @@
 # Facebook Hacker Cup 2018 Round 3 - Ethan Finds the Maximum Subarray Sum
 # https://www.facebook.com/hackercup/problem/467235440368329/
 #
-# Time:  O(N)
+# Time:  O(N^2 * K)
 # Space: O(1)
 #
 

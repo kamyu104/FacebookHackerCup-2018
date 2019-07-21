@@ -12,12 +12,12 @@ def ethan_finds_the_maximum_subarray_sum():
     B = map(int, raw_input().strip().split())
 
     min_ethan_m = max(max(B), 0)
-    left = int(B[0] < 0)
-    right = (2*M-1)-int(B[-1] < 0)  # exclude last negative value
+    left = int(B[0] < 0)  # exclude first negative value if it exists
+    right = (2*M-1)-int(B[-1] < 0)  # exclude last negative value if it exists
     result = 0
     for ethan_m in xrange(min_ethan_m, (right-left)*K+1):  # enumerate every possible ethan's answer
         max_m, m = 0, 0
-        for i in xrange(left, right):  # greedily insert values, exclude first negative value if it exists
+        for i in xrange(left, right):  # greedily insert values
             j, is_given_value = divmod(i+1, 2)
             if is_given_value:  # given value
                 max_m += B[j]

@@ -42,7 +42,7 @@ def finshakes():
                 if i <= interval[L] and interval[R] <= j:
                     C[interval[L]] += 1
                     C[interval[R]+1] -= 1
-            for m in xrange(i, j+1):
+            for m in xrange(i, j):
                 C[m+1] += C[m]
             if l == 0:
                 dp[i][j] = f(C[i])

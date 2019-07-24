@@ -31,7 +31,7 @@ def finshakes():
         interval[L] = lookup[interval[L]]
         interval[R] = lookup[interval[R]]
 
-    M2 = len(endpoint_set)
+    M2 = len(endpoint_set)  # at most 2 * M endpoints
     dp = [[0 for _ in xrange(M2+1)] for _ in xrange(M2+2)]
     for l in xrange(M2):
         for i in xrange(M2-l+1):

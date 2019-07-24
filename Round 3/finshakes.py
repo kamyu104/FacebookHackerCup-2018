@@ -13,16 +13,15 @@ def f(x):
 def finshakes():
     N, M, W = map(int, raw_input().strip().split())
     H = map(int, raw_input().strip().split())
-    H.insert(0, 0)
 
     intervals = []
     endpoint_set = set()
     for i in xrange(M):
         P, J = map(int, raw_input().strip().split())
-        l, r = P, P
-        while l > 1 and H[l]+J > W:
+        l, r = P-1, P-1
+        while l-1 >= 0 and H[l]+J > W:
             l -= 1
-        while r < N and H[r]+J > W:
+        while r+1 < N and H[r]+J > W:
             r += 1
         intervals.append([l, r])
         endpoint_set.add(l)

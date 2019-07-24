@@ -35,6 +35,6 @@ Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it 
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |1| [Jammin'](https://www.facebook.com/hackercup/problem/1851349144951409/)| [Python](./Round%203/jammin.py)| _O(N)_ | _O(1)_ | Easy | | Simulation |
-|2| [Ethan Finds the Maximum Subarray Sum](https://www.facebook.com/hackercup/problem/467235440368329/)| [Python](./Round%203/ethan_finds_the_maximum_subarray_sum.py)| _O(N^2 * K)_ | _O(1)_ | Medium | | Greedy |
+|2| [Ethan Finds the Maximum Subarray Sum](https://www.facebook.com/hackercup/problem/467235440368329/)| [Python](./Round%203/ethan_finds_the_maximum_subarray_sum.py)| _O(M^2 * K)_ | _O(1)_ | Medium | | Greedy |
 |3| [Graph Gift](https://www.facebook.com/hackercup/problem/234060297329233/)| [PyPy](./Round%203/graph_gift.py)| _O(N^2)_ | _O(N)_ | Medium | | Greedy |
 |4| [Finshakes](https://www.facebook.com/hackercup/problem/206776773482750/)| [Python](./Round%203/finshakes.py)| _O(M^3)_ | _O(M^2)_ | Hard | | DP |

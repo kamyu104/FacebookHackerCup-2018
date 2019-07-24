@@ -24,7 +24,7 @@ def finshakes():
             l -= 1
         while r < N and H[r]+J > W:
             r += 1
-        intervals.append([l, r, 1])
+        intervals.append([l, r])
         endpoint_set.add(l)
         endpoint_set.add(r)
     lookup = {v:k for k, v in enumerate(sorted(endpoint_set), 1)}
@@ -40,8 +40,8 @@ def finshakes():
             C = [0]*(M2+2)
             for interval in intervals:
                 if i <= interval[L] and interval[R] <= j:
-                    C[interval[L]] += interval[V]
-                    C[interval[R]+1] -= interval[V]
+                    C[interval[L]] += 1
+                    C[interval[R]+1] -= 1
             for m in xrange(i, j+1):
                 C[m+1] += C[m]
             if l == 0:
@@ -51,6 +51,6 @@ def finshakes():
                     dp[i][j] = max(dp[i][j], dp[i][m-1] + f(C[m]) + dp[m+1][j])
     return dp[1][M2]
 
-L, R, V = range(3)
+L, R = range(2)
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, finshakes())

@@ -26,7 +26,7 @@ def finshakes():
         intervals.append([l, r])
         endpoint_set.add(l)
         endpoint_set.add(r)
-    lookup = {v:k for k, v in enumerate(sorted(endpoint_set), 1)}
+    lookup = {v:k for k, v in enumerate(sorted(endpoint_set), 1)}  # Time: O(MlogM)
     for interval in intervals:  # compress intervals
         interval[L] = lookup[interval[L]]
         interval[R] = lookup[interval[R]]

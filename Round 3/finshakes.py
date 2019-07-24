@@ -29,7 +29,6 @@ def finshakes():
     for l in xrange(N):
         for i in xrange(N-l+1):
             j = i+l
-            dp[i][j] = float("-inf")
             C = [0]*(l+2)
             for k in xrange(M):
                 if intervals[k][L] >= i and intervals[k][R] <= j:

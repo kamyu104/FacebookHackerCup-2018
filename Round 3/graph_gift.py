@@ -8,7 +8,7 @@
 #
 
 def cost_of_cross_pairing_B(lookup, B, ny):  # Time: O(N)
-    if ny not in lookup:
+    if lookup[ny] == -1:
         result = 0
         for i in xrange((ny-1)//2):
             result += B[-i-2]*B[-ny+i]
@@ -52,7 +52,7 @@ def graph_gift():
     prefix_sum_B = [0]*(len(B)+1)
     for i in xrange(len(B)):
         prefix_sum_B[i+1] = prefix_sum_B[i]+B[i]
-    lookup = {}
+    lookup = [-1]*len(B)
     result = float("inf")
     if not A:
         result = min_cost_of_connecting_last_B(lookup, prefix_sum_B, B, len(B))  # Time: O(N)

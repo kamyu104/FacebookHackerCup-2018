@@ -31,7 +31,7 @@ def finshakes():
             j = i+l
             C = [0]*(N+2)
             for interval in intervals:
-                if interval[L] >= i and interval[R] <= j:
+                if i <= interval[L] and interval[R] <= j:
                     C[interval[L]] += interval[V]
                     C[interval[R]+1] -= interval[V]
             for m in xrange(i, j+1):

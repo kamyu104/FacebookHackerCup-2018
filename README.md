@@ -1,4 +1,4 @@
-# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-CC%203.0-blue.svg)](https://creativecommons.org/licenses/by-nc/3.0/) ![Progress](https://img.shields.io/badge/progress-13%20%2F%2021-ff69b4.svg)
+# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-CC%203.0-blue.svg)](https://creativecommons.org/licenses/by-nc/3.0/) ![Progress](https://img.shields.io/badge/progress-14%20%2F%2021-ff69b4.svg)
 
 
 Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
@@ -36,3 +36,4 @@ Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it 
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |1| [Jammin'](https://www.facebook.com/hackercup/problem/1851349144951409/)| [Python](./Round%203/jammin.py)| _O(N)_ | _O(1)_ | Easy | | Simulation |
 |2| [Ethan Finds the Maximum Subarray Sum](https://www.facebook.com/hackercup/problem/467235440368329/)| [Python](./Round%203/ethan_finds_the_maximum_subarray_sum.py)| _O(N^2 * K)_ | _O(1)_ | Medium | | Greedy |
+|3| [Graph Gift](https://www.facebook.com/hackercup/problem/234060297329233/)| [Python](./Round%203/graph_gift.py)| _O(N^2)_ | _O(N)_ | Medium | | Greedy |

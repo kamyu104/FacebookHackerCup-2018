@@ -29,18 +29,18 @@ def finshakes():
     for l in xrange(N):
         for i in xrange(N-l+1):
             j = i+l
-            C = [0]*(l+2)
+            C = [0]*(j+2)
             for k in xrange(M):
                 if intervals[k][L] >= i and intervals[k][R] <= j:
-                    C[intervals[k][L]-i] += intervals[k][V]
-                    C[intervals[k][R]+1-i] -= intervals[k][V]
-            for k in xrange(l+1):
-                C[k+1] += C[k]
+                    C[intervals[k][L]] += intervals[k][V]
+                    C[intervals[k][R]+1] -= intervals[k][V]
+            for m in xrange(i, j+1):
+                C[m+1] += C[m]
             if l == 0:
-                dp[i][j] = f(C[0])
+                dp[i][j] = f(C[i])
             else:
-                for k in xrange(l+1):
-                    dp[i][j] = max(dp[i][j], dp[i][i+k-1] + f(C[k]) + dp[i+k+1][j])
+                for m in xrange(i, j+1):
+                    dp[i][j] = max(dp[i][j], dp[i][m-1] + f(C[m]) + dp[m+1][j])
     return dp[1][N]
 
 L, R, V = range(3)

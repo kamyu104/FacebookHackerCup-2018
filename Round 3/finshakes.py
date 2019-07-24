@@ -42,8 +42,8 @@ def finshakes():
                     C[interval[L]-i] += 1
                     C[interval[R]+1-i] -= 1
             for m in xrange(i, j+1):
-                C[m+1-i] += C[m-i]
                 dp[i][j] = max(dp[i][j], dp[i][m-1] + f(C[m-i]) + dp[m+1][j])
+                C[m+1-i] += C[m-i]
     return dp[1][M2]
 
 L, R = range(2)

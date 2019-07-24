@@ -36,18 +36,18 @@ def finshakes():
     for l in xrange(M2):
         for i in xrange(M2-l+1):
             j = i+l
-            C = [0]*(M2+2)
+            C = [0]*(j+2)
             for interval in intervals:
                 if i <= interval[L] and interval[R] <= j:
-                    C[interval[L]] += 1
-                    C[interval[R]+1] -= 1
+                    C[interval[L]-i] += 1
+                    C[interval[R]+1-i] -= 1
             for m in xrange(i, j):
-                C[m+1] += C[m]
+                C[m+1-i] += C[m-i]
             if l == 0:
-                dp[i][j] = f(C[i])
+                dp[i][j] = f(C[0])
             else:
                 for m in xrange(i, j+1):
-                    dp[i][j] = max(dp[i][j], dp[i][m-1] + f(C[m]) + dp[m+1][j])
+                    dp[i][j] = max(dp[i][j], dp[i][m-1] + f(C[m-i]) + dp[m+1][j])
     return dp[1][M2]
 
 L, R = range(2)

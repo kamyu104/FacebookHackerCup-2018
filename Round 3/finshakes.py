@@ -1,4 +1,4 @@
-# Copyright (c) 2019 kamyu. Al rights reserved.
+# Copyright (c) 2019 kamyu. All rights reserved.
 #
 # Facebook Hacker Cup 2019 Round 3 - Finshakes
 # https://www.facebook.com/hackercup/problem/206776773482750/

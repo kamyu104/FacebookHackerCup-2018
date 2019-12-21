@@ -1,12 +1,13 @@
 # [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-CC%203.0-blue.svg)](https://creativecommons.org/licenses/by-nc/3.0/) ![Progress](https://img.shields.io/badge/progress-15%20%2F%2021-ff69b4.svg)
 
 
-Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds).
+Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). A `6-minute` timer is set for uploading the result this year.
 
 * [Qualification Round](https://github.com/kamyu104/FacebookHackerCup-2018#qualification-round)
 * [Round 1](https://github.com/kamyu104/FacebookHackerCup-2018#round-1)
 * [Round 2](https://github.com/kamyu104/FacebookHackerCup-2018#round-2)
 * [Round 3](https://github.com/kamyu104/FacebookHackerCup-2018#round-3)
+* [Final Round](https://github.com/kamyu104/FacebookHackerCup-2018#final-round)
 
 ## Qualification Round
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -38,3 +39,15 @@ Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it 
 |2| [Ethan Finds the Maximum Subarray Sum](https://www.facebook.com/hackercup/problem/467235440368329/)| [Python](./Round%203/ethan_finds_the_maximum_subarray_sum.py)| _O(M^2 * K)_ | _O(1)_ | Medium | | Greedy |
 |3| [Graph Gift](https://www.facebook.com/hackercup/problem/234060297329233/)| [PyPy](./Round%203/graph_gift.py)| _O(N^2)_ | _O(N)_ | Medium | | Greedy |
 |4| [Finshakes](https://www.facebook.com/hackercup/problem/206776773482750/)| [Python](./Round%203/finshakes.py)| _O(M^3)_ | _O(M^2)_ | Hard | | DP |
+
+## Final Round
+You can relive the magic of the 2018 Hacker Cup World Finals by watching the [Live Stream Recording](https://www.facebook.com/hackercup/videos/1066267066866252/) of the announcement of winners.
+
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|1| [Contest Environment](https://www.facebook.com/hackercup/problem/1983047265329089/)| | | | Easy | | |
+|2| [Stockholm](https://www.facebook.com/hackercup/problem/2019100985085971/)| | | | Easy | | |
+|3| [Ethan Sums Shortest Distances](https://www.facebook.com/hackercup/problem/278591946122939/)| | | | Easy | | |
+|4| [Personal Space](https://www.facebook.com/hackercup/problem/659927157741948/)| | | | Medium | | |
+|5| [City Lights](https://www.facebook.com/hackercup/problem/162710881087828/)| | | | Hard | | |
+|6| [The Claw](https://www.facebook.com/hackercup/problem/278597692763175/)| | | | Medium | | |

@@ -4,7 +4,7 @@
 # https://www.facebook.com/hackercup/problem/1983047265329089/
 #
 # Time:  O(N)
-# Space: O(1))
+# Space: O(1)
 #
 
 def contest_environment():

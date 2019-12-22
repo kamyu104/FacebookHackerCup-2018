@@ -8,12 +8,12 @@
 #
 
 def contest_environment():
-    A, B = raw_input().strip(), raw_input().strip()
+    F, B = raw_input().strip(), raw_input().strip()
     if any(x == '#' for x in B):
         return "Impossible"
-    unoccupied_count = sum(int(x == '.') for x in A) + sum(int(x == '.') for x in B)
+    unoccupied_count = sum(int(x == '.') for x in F) + sum(int(x == '.') for x in B)
     max_blocked_count, blocked_count = 0, 0
-    for x in A:
+    for x in F:
         if x == '#':
             blocked_count += 1
         else:

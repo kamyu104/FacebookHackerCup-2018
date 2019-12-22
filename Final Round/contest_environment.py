@@ -19,7 +19,7 @@ def contest_environment():
         else:
             max_blocked_count = max(max_blocked_count, blocked_count)
             blocked_count = 0
-    return "Possible" if (unoccupied_count >= max_blocked_count + 3) else "Impossible"
+    return "Possible" if (unoccupied_count - max_blocked_count >= 3) else "Impossible"
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, contest_environment())

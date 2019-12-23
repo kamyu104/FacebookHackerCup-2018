@@ -30,10 +30,10 @@ def distance(x):
 
 def contest_environment():
     A, B = map(int, raw_input().strip().split())
-    X, Y = "{0:b}".format(A+1), "{0:b}".format(B+1)
+    X, Y = map(lambda x: "{0:b}".format(x), [A+1, B+1])
     lca = LCA(X, Y)
-    X, Y = X[lca:] if lca < len(X) else [], Y[lca:] if lca < len(Y) else []
-    dist1, dist2 = distance(X), distance(Y)
+    X, Y = map(lambda x: x[lca:] if lca < len(x) else [], [X, Y])
+    dist1, dist2 = map(distance, [X, Y])
     return dist1[0]+dist2[0]+int(len(X) and len(Y) and (dist1[1] or dist2[1]))
 
 for case in xrange(input()):

@@ -32,7 +32,7 @@ def contest_environment():
     A, B = map(int, raw_input().strip().split())
     X, Y = map(lambda x: "{0:b}".format(x), [A+1, B+1])
     p = lca(X, Y)
-    X, Y = map(lambda x: x[p:] if p < len(x) else [], [X, Y])
+    X, Y = map(lambda x: x[p:] if p < len(x) else "", [X, Y])
     dist1, dist2 = map(distance, [X, Y])
     return dist1[0]+dist2[0]+int(len(X) and len(Y) and (dist1[1] or dist2[1]))
 

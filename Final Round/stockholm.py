@@ -14,7 +14,7 @@ def lca(x, y):
     return i+1
 
 def distance(x):
-    result, l, is_over_lca_bridge = 0, len(x), False
+    dist, l, is_over_lca_bridge = 0, len(x), False
     while l:
         i = l-1
         while i and x[i] == x[i-1]:
@@ -25,8 +25,8 @@ def distance(x):
             is_over_lca_bridge = (l >= 2 and x[0] == x[l-1])
             break
         l = i
-        result += 1
-    return result, is_over_lca_bridge
+        dist += 1
+    return dist, is_over_lca_bridge
 
 def contest_environment():
     A, B = map(int, raw_input().strip().split())

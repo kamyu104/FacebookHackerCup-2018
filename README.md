@@ -1,4 +1,4 @@
-# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-CC%203.0-blue.svg)](https://creativecommons.org/licenses/by-nc/3.0/) ![Progress](https://img.shields.io/badge/progress-16%20%2F%2021-ff69b4.svg)
+# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-CC%203.0-blue.svg)](https://creativecommons.org/licenses/by-nc/3.0/) ![Progress](https://img.shields.io/badge/progress-17%20%2F%2021-ff69b4.svg)
 
 
 Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). A `6-minute` timer is set for uploading the result this year.
@@ -46,7 +46,7 @@ You can relive the magic of the 2018 Hacker Cup World Finals by watching the [Li
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |1| [Contest Environment](https://www.facebook.com/hackercup/problem/1983047265329089/)| [Python](./Final%20Round/contest_environment.py) | _O(N)_ | _O(1)_ | Easy | | Math |
-|2| [Stockholm](https://www.facebook.com/hackercup/problem/2019100985085971/)| | | | Easy | | |
+|2| [Stockholm](https://www.facebook.com/hackercup/problem/2019100985085971/)| [Python](./Final%20Round/contest_environment.py) | _O(logA + logB)_ | _O(logA + logB)_ | Easy | | Greedy |
 |3| [Ethan Sums Shortest Distances](https://www.facebook.com/hackercup/problem/278591946122939/)| | | | Easy | | |
 |4| [Personal Space](https://www.facebook.com/hackercup/problem/659927157741948/)| | | | Medium | | |
 |5| [City Lights](https://www.facebook.com/hackercup/problem/162710881087828/)| | | | Hard | | |

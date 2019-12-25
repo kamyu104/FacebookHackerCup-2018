@@ -61,15 +61,14 @@ def ethan_sums_shortest_distances():
     for i in xrange(N):  # Time: O(N^3)
         for r in xrange(3):
             for p in xrange(i+1):
-                curr = dp[i][r][p]
+                curr = 0
                 for j in xrange(2):
                     s = 0
                     for k in reversed(xrange(i+1, N)):
                         s += A[j][k]
                         curr += s*(S-s)
                 s = accu[0][N] if (r == 2) else accu[r][N]-accu[r][p]
-                curr += s*(S-s)
-                result = min(result, curr)
+                result = min(result, dp[i][r][p] + curr + s*(S-s))
     return result
 
 for case in xrange(input()):

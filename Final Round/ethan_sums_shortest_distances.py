@@ -37,10 +37,10 @@ def ethan_sums_shortest_distances():
             for nr in xrange(2):
                 for np in xrange(i+1, ni+1):
                     curr = 0
-                    s = accu[nr][np]+accu[nr^1][i+1]
+                    s = accu[nr][np]+accu[nr^1][i]
                     for j in xrange(i, ni):
+                        s += A[nr^1][j]
                         curr += s*(S-s)
-                        s += A[nr^1][j+1]
                     s = 0
                     for j in reversed(xrange(i+1, np)):
                         s += A[nr][j]
@@ -55,7 +55,7 @@ def ethan_sums_shortest_distances():
                                 s = accu[nr][np]
                             else:
                                 s = accu[nr][np]-accu[nr][p] if (r == nr) else accu[nr][np]+accu[nr^1][p]
-                            dp[ni][nr][np] = min(dp[ni][nr][np], dp[i][r][p] + curr + s*(S-s))
+                            dp[ni][nr][np] = min(dp[ni][nr][np], dp[i][r][p] + s*(S-s) + curr)
 
     result = float("inf")
     for i in xrange(N):  # Time: O(N^3)
@@ -68,7 +68,7 @@ def ethan_sums_shortest_distances():
                         s += A[j][k]
                         curr += s*(S-s)
                 s = accu[0][N] if (r == 2) else accu[r][N]-accu[r][p]
-                result = min(result, dp[i][r][p] + curr + s*(S-s))
+                result = min(result, dp[i][r][p] + s*(S-s) + curr)
     return result
 
 for case in xrange(input()):

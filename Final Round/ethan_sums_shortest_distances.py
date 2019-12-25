@@ -8,10 +8,10 @@
 #
 
 # based on official solution:
-# dp[i][r][p] = min. cost such that:
+# dp[i][r][g] = min. cost such that:
 # - you're ending at a vertical edge in column i (its cost is exluded)
 # - you previously had a partial horizontal section in row r (r = 2 indicates both rows)
-# - the partial horizontal section started in column p
+# - the partial horizontal section started in column g
 
 def ethan_sums_shortest_distances():
     N = input()
@@ -50,25 +50,25 @@ def ethan_sums_shortest_distances():
                         s += A[nr][j]
                         curr += s*(S-s)
                     for r in xrange(3):
-                        for p in xrange(i+1):
+                        for g in xrange(i+1):
                             if r == 2:
                                 s = accu[nr][np]
                             else:
-                                s = accu[nr][np]-accu[nr][p] if (r == nr) else accu[nr][np]+accu[nr^1][p]
-                            dp[ni][nr][np] = min(dp[ni][nr][np], dp[i][r][p] + s*(S-s) + curr)
+                                s = accu[nr][np]-accu[nr][g] if (r == nr) else accu[nr][np]+accu[nr^1][g]
+                            dp[ni][nr][np] = min(dp[ni][nr][np], dp[i][r][g] + s*(S-s) + curr)
 
     result = float("inf")
     for i in xrange(N):  # Time: O(N^3)
         for r in xrange(3):
-            for p in xrange(i+1):
+            for g in xrange(i+1):
                 curr = 0
                 for j in xrange(2):
                     s = 0
                     for k in reversed(xrange(i+1, N)):
                         s += A[j][k]
                         curr += s*(S-s)
-                s = accu[0][N] if (r == 2) else accu[r][N]-accu[r][p]
-                result = min(result, dp[i][r][p] + s*(S-s) + curr)
+                s = accu[0][N] if (r == 2) else accu[r][N]-accu[r][g]
+                result = min(result, dp[i][r][g] + s*(S-s) + curr)
     return result
 
 for case in xrange(input()):

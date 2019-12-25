@@ -18,13 +18,13 @@ def ethan_sums_shortest_distances():
     A = [map(int, raw_input().strip().split()) for _ in xrange(2)]
 
     accu = [[0 for _ in xrange(N+1)] for _ in xrange(2)]
-    for i in xrange(2):  # Time:  O(N)
+    for i in xrange(2):  # Time: O(N)
         for j in xrange(N):
             accu[i][j+1] = accu[i][j]+A[i][j]
 
     S = accu[0][N]+accu[1][N]
     dp = [[[float("inf") for _ in xrange(N)] for _ in xrange(3)] for _ in xrange(N)]
-    for i in xrange(N):  # Time:  O(N^2)
+    for i in xrange(N):  # Time: O(N^2)
         dp[i][2][0] = 0
         for j in xrange(2):
             s = 0
@@ -32,7 +32,7 @@ def ethan_sums_shortest_distances():
                 s += A[j][k]
                 dp[i][2][0] += s*(S-s)
 
-    for i in xrange(N):  # Time:  O(N^4)
+    for i in xrange(N):  # Time: O(N^4)
         for ni in xrange(i+1, N):
             for nr in xrange(2):
                 for np in xrange(i+1, ni+1):
@@ -58,7 +58,7 @@ def ethan_sums_shortest_distances():
                             dp[ni][nr][np] = min(dp[ni][nr][np], dp[i][r][p] + curr + s*(S-s))
 
     result = float("inf")
-    for i in xrange(N):  # Time:  O(N^3)
+    for i in xrange(N):  # Time: O(N^3)
         for r in xrange(3):
             for p in xrange(i+1):
                 curr = dp[i][r][p]

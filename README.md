@@ -47,7 +47,7 @@ You can relive the magic of the 2018 Hacker Cup World Finals by watching the [Li
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |1| [Contest Environment](https://www.facebook.com/hackercup/problem/1983047265329089/)| [Python](./Final%20Round/contest_environment.py) | _O(N)_ | _O(1)_ | Easy | | Math |
 |2| [Stockholm](https://www.facebook.com/hackercup/problem/2019100985085971/)| [Python](./Final%20Round/stockholm.py) | _O(logA + logB)_ | _O(logA + logB)_ | Easy | | Binary Tree, Bit Manipulation, Greedy |
-|3| [Ethan Sums Shortest Distances](https://www.facebook.com/hackercup/problem/278591946122939/)| [Python](./Final%20Round/ethan_sums_shortest_distances.py) | _O(N^4)_ | _O(N^2)_ | Easy | | DP |
+|3| [Ethan Sums Shortest Distances](https://www.facebook.com/hackercup/problem/278591946122939/)| [Python](./Final%20Round/ethan_sums_shortest_distances.py) [Python](./Final%20Round/ethan_sums_shortest_distances2.py) | _O(N^4)_ | _O(N)_ | Easy | | DP |
 |4| [Personal Space](https://www.facebook.com/hackercup/problem/659927157741948/)| | | | Medium | | |
 |5| [City Lights](https://www.facebook.com/hackercup/problem/162710881087828/)| | | | Hard | | |
 |6| [The Claw](https://www.facebook.com/hackercup/problem/278597692763175/)| | | | Medium | | |

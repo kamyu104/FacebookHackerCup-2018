@@ -13,7 +13,7 @@
 def ethan_sums_shortest_distances():
     N = input()
     A = [map(int, raw_input().strip().split()) for _ in xrange(2)]
-    S = sum(A[0])+sum(A[1])
+    S = sum(map(sum, A))
 
     dp = [[float("inf") for _ in xrange(N+1)] for _ in xrange(2)]
     dp[0][0] = dp[1][0] = 0

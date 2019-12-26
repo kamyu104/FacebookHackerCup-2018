@@ -23,15 +23,15 @@ def ethan_sums_shortest_distances():
                 for ng in xrange(g+1, N+1):
                     for join in xrange(g, ng):
                         curr = 0
+                        s = 0
+                        for c in xrange(g, join):
+                            s += A[r][c]
+                            curr += s*(S-s)
+                        s = 0
+                        for c in reversed(xrange(join+1, ng)):
+                            s += A[nr][c]
+                            curr += s*(S-s)
                         if r == nr:
-                            s = 0
-                            for c in xrange(g, join):
-                                s += A[r][c]
-                                curr += s*(S-s)
-                            s = 0
-                            for c in reversed(xrange(join+1, ng)):
-                                s += A[r][c]
-                                curr += s*(S-s)
                             s = 0
                             for c in xrange(g, ng):
                                 s += A[r][c]
@@ -48,14 +48,6 @@ def ethan_sums_shortest_distances():
                                 s += A[r^1][c]
                                 curr += s*(S-s)
                         else:
-                            s = 0
-                            for c in xrange(g, join):
-                                s += A[r][c]
-                                curr += s*(S-s)
-                            s = 0
-                            for c in reversed(xrange(join+1, ng)):
-                                s += A[nr][c]
-                                curr += s*(S-s)
                             s = 0
                             for c in xrange(g):
                                 s += A[r][c] + A[r^1][c]

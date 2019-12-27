@@ -3,7 +3,7 @@
 # Facebook Hacker Cup 2018 Final Round - Ethan Sums Shortest Distances
 # https://www.facebook.com/hackercup/problem/278591946122939/
 #
-# Time:  O(N^3), optimized from ethan_sums_shortest_distances2.py
+# Time:  O(N^3), optimized from ethan_sums_shortest_distances3.py
 # Space: O(N^2)
 #
 
@@ -49,27 +49,20 @@ def ethan_sums_shortest_distances():
     dp[0][0] = dp[1][0] = 0
     for r in xrange(2):  # Time: O(N^3)
         for g in xrange(N):
-            for nr in xrange(2):
-                for ng in xrange(g+1, N+1):
-                    for join in xrange(g, ng):
-                        if r == nr:
-                            s = accu[r][ng]-accu[r][g]
-                            curr = partial_accu_from_left[r][g+1][join] + \
-                                   full_accu_from_left[r^1][g+1][join] + \
-                                   partial_accu_from_right[r][ng][join+1] + \
-                                   full_accu_from_right[r^1][ng][join+1] + \
-                                   s*(S-s)
-                        else:
-                            s = accu[r][g]+accu[r^1][ng]
-                            curr = partial_accu_from_left[r][g+1][join] + \
-                                   full_accu_from_left[r^1][g+1][join] + \
-                                   partial_accu_from_right[r^1][ng][join+1] + \
-                                   full_accu_from_right[r][ng][join+1] + \
-                                   s*(S-s)
-                        dp[nr][ng] = min(dp[nr][ng], dp[r][g] + curr)
+            for ng in xrange(g+1, N+1):
+                for join in xrange(g, ng):
+                    # based on that an optimal solution always exists
+                    # which uses either all N-1 edges in the top row or
+                    # all N-1 edges in the bottom row
+                    s = accu[r][ng]-accu[r][g]
+                    curr = partial_accu_from_left[r][g+1][join] + \
+                           full_accu_from_left[r^1][g+1][join] + \
+                           partial_accu_from_right[r][ng][join+1] + \
+                           full_accu_from_right[r^1][ng][join+1] + \
+                           s*(S-s)
+                    dp[r][ng] = min(dp[r][ng], dp[r][g] + curr)
 
-    assert(dp[0][N] == dp[1][N])
-    return dp[0][N]
+    return min(dp[0][N], dp[1][N])
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, ethan_sums_shortest_distances())

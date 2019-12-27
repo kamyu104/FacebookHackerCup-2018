@@ -53,12 +53,13 @@ def ethan_sums_shortest_distances():
                     # based on that an optimal solution always exists
                     # which uses either all N-1 edges in the top row or
                     # all N-1 edges in the bottom row
+                    s = accu[r][ng]-accu[r][g]
                     curr = partial_accu_from_left[r][g+1][join] + \
                            full_accu_from_left[r^1][g+1][join] + \
                            partial_accu_from_right[r][ng][join] + \
-                           full_accu_from_right[r^1][ng][join-1]
-                    s = accu[r][ng]-accu[r][g]
-                    dp[r][ng] = min(dp[r][ng], dp[r][g] + s*(S-s) + curr)
+                           full_accu_from_right[r^1][ng][join-1] + \
+                           s*(S-s)
+                    dp[r][ng] = min(dp[r][ng], dp[r][g] + curr)
     return min(dp[0][N], dp[1][N])
 
 for case in xrange(input()):

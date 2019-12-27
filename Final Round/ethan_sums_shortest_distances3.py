@@ -22,6 +22,8 @@ def ethan_sums_shortest_distances():
     
     partial_accu_from_left = [[[0 for _ in xrange(N+1)] for _ in xrange(N+1)] for _ in xrange(2)]
     full_accu_from_left = [[[0 for _ in xrange(N+1)] for _ in xrange(N+1)] for _ in xrange(2)]
+    partial_accu_from_right = [[[0 for _ in xrange(N+1)] for _ in xrange(N+1)] for _ in xrange(2)]
+    full_accu_from_right = [[[0 for _ in xrange(N+1)] for _ in xrange(N+1)] for _ in xrange(2)]
     for r in xrange(2):  # Time: O(N^2)
         for g in xrange(1, N+1):
             s = 0
@@ -32,11 +34,7 @@ def ethan_sums_shortest_distances():
             for c in xrange(g-1, N):
                 s += A[r][c]
                 full_accu_from_left[r][g][c+1] = full_accu_from_left[r][g][c] + s*(S-s)
-
-    partial_accu_from_right = [[[0 for _ in xrange(N+1)] for _ in xrange(N+1)] for _ in xrange(2)]
-    full_accu_from_right = [[[0 for _ in xrange(N+1)] for _ in xrange(N+1)] for _ in xrange(2)]
-    for r in xrange(2):  # Time: O(N^2)
-       for g in reversed(xrange(1, N+1)):
+        for g in reversed(xrange(1, N+1)):
             s = 0
             for c in reversed(xrange(g)):
                 s += A[r][c]

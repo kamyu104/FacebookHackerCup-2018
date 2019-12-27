@@ -36,14 +36,14 @@ def ethan_sums_shortest_distances():
                 full_accu_from_left[r][g][c+1] = full_accu_from_left[r][g][c] + s*(S-s)
         for g in reversed(xrange(1, N+1)):
             s = 0
-            for c in reversed(xrange(g)):
+            for c in reversed(xrange(1, g)):
                 s += A[r][c]
                 partial_accu_from_right[r][g][c-1] = partial_accu_from_right[r][g][c] + s*(S-s)
             s = (accu[r][N]-accu[r][g])+(accu[r^1][N]-accu[r^1][g])
-            for c in reversed(xrange(g)):
-                full_accu_from_right[r][g][c-1] = full_accu_from_right[r][g][c] + s*(S-s)
+            full_accu_from_right[r][g][g-1] = s*(S-s)
+            for c in reversed(xrange(1, g)):
                 s += A[r][c]
-
+                full_accu_from_right[r][g][c-1] = full_accu_from_right[r][g][c] + s*(S-s)
     dp = [[float("inf") for _ in xrange(N+1)] for _ in xrange(2)]
     dp[0][0] = dp[1][0] = 0
     for r in xrange(2):  # Time: O(N^3)
@@ -57,7 +57,7 @@ def ethan_sums_shortest_distances():
                     curr = partial_accu_from_left[r][g+1][join] + \
                            full_accu_from_left[r^1][g+1][join] + \
                            partial_accu_from_right[r][ng][join] + \
-                           full_accu_from_right[r^1][ng][join-1] + \
+                           full_accu_from_right[r^1][ng][join] + \
                            s*(S-s)
                     dp[r][ng] = min(dp[r][ng], dp[r][g] + curr)
     return min(dp[0][N], dp[1][N])

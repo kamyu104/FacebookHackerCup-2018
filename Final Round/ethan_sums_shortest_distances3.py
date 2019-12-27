@@ -59,7 +59,7 @@ def ethan_sums_shortest_distances():
                            full_accu_from_left[r^1][g+1][join] + \
                            partial_accu_from_right[r][ng][join] + \
                            full_accu_from_right[r^1][ng][join-1]
-                    s = accu[r][ng] - accu[r][g]
+                    s = accu[r][ng]-accu[r][g]
                     dp[r][ng] = min(dp[r][ng], dp[r][g] + s*(S-s) + curr)
     return min(dp[0][N], dp[1][N])
 

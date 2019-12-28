@@ -172,7 +172,7 @@ def personal_space():
     # bottom-up line sweep DP on rectangles
     rects.sort()
     x_max_dp_ordered_set = Skiplist((float("inf"), float("inf")))
-    x_max_dp_ordered_set.add((-2, 0))
+    x_max_dp_ordered_set.add((float("-inf"), 0))
     result = 0
     dp = [0]*len(rects)
     for i in xrange(len(rects)):

@@ -135,7 +135,7 @@ def update(x_max_dp_ordered_set, x, v):
         return
     if it.val[0] < x:
         it = it.nexts[0]
-    while it and v >= it.val[1]:
+    while it and it.val[1] <= v:
         curr = it
         it = it.nexts[0]
         x_max_dp_ordered_set.remove(curr.val)

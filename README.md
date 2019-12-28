@@ -1,4 +1,4 @@
-# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-CC%203.0-blue.svg)](https://creativecommons.org/licenses/by-nc/3.0/) ![Progress](https://img.shields.io/badge/progress-18%20%2F%2021-ff69b4.svg)
+# [FacebookHackerCup-2018](https://www.facebook.com/hackercup/past_rounds/) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-CC%203.0-blue.svg)](https://creativecommons.org/licenses/by-nc/3.0/) ![Progress](https://img.shields.io/badge/progress-19%20%2F%2021-ff69b4.svg)
 
 
 Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). A `6-minute` timer is set for uploading the result this year.
@@ -48,6 +48,6 @@ You can relive the magic of the 2018 Hacker Cup World Finals by watching the [Li
 |1| [Contest Environment](https://www.facebook.com/hackercup/problem/1983047265329089/)| [Python](./Final%20Round/contest_environment.py) | _O(N)_ | _O(1)_ | Easy | | Math |
 |2| [Stockholm](https://www.facebook.com/hackercup/problem/2019100985085971/)| [Python](./Final%20Round/stockholm.py) | _O(logA + logB)_ | _O(logA + logB)_ | Easy | | Binary Tree, Bit Manipulation, Greedy |
 |3| [Ethan Sums Shortest Distances](https://www.facebook.com/hackercup/problem/278591946122939/)| [Python](./Final%20Round/ethan_sums_shortest_distances.py)<br> [Python](./Final%20Round/ethan_sums_shortest_distances2.py)<br> [Python](./Final%20Round/ethan_sums_shortest_distances3.py)<br> [Python](./Final%20Round/ethan_sums_shortest_distances4.py) | _O(N^3)_ | _O(N^2)_ | Easy | | Prefix Sum, DP |
-|4| [Personal Space](https://www.facebook.com/hackercup/problem/659927157741948/)| | | | Medium | | |
+|4| [Personal Space](https://www.facebook.com/hackercup/problem/659927157741948/)| [PyPy](./Final%20Round/personal_space.py) | _O(NlogN)_ | _O(N)_ | Medium | | Skip List, DP |
 |5| [City Lights](https://www.facebook.com/hackercup/problem/162710881087828/)| | | | Hard | | |
 |6| [The Claw](https://www.facebook.com/hackercup/problem/278597692763175/)| | | | Medium | | |

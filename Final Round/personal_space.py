@@ -52,7 +52,7 @@ class Skiplist(object):
         self.__len += 1
         return True
 
-    def erase(self, val):
+    def remove(self, val):
         prevs = self.__find_prev_nodes(val)
         curr = self.__find(val, prevs)
         if not curr:
@@ -138,7 +138,7 @@ def update(x_max_dp_ordered_set, x, v):
     while it and v >= it.val[1]:
         curr = it
         it = it.nexts[0]
-        x_max_dp_ordered_set.erase(curr.val)
+        x_max_dp_ordered_set.remove(curr.val)
     x_max_dp_ordered_set.add((x, v))
 
 def personal_space():
@@ -164,7 +164,7 @@ def personal_space():
             if intervals[k][1] > 0:
                 x_ordered_set.add(intervals[k][0][1])
             else:
-                x_ordered_set.erase(intervals[k][0][1])
+                x_ordered_set.remove(intervals[k][0][1])
         for k in xrange(i, j+1):
             add_rects(x_ordered_set, rects, intervals[k][0][1])
         i = j

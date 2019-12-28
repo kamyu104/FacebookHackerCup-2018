@@ -151,7 +151,7 @@ def personal_space():
     # bottom-up line sweep to generate all possible fish placement "rectangles"
     intervals.sort()
     x_ordered_set = Skiplist()
-    for i in xrange(4):
+    for i in xrange(3):
         x_ordered_set.add(-1-i)
         x_ordered_set.add(MAX_X_Y+1+i)
     rects = []

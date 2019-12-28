@@ -96,7 +96,7 @@ class Skiplist(object):
         return level
 
     def __len__(self):
-        return self.__len
+        return self.__len-1  # excluding end node
     
     def __str__(self):
         result = []

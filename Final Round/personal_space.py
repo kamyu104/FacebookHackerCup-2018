@@ -177,7 +177,7 @@ def personal_space():
     dp = [0]*len(rects)
     for i in xrange(len(rects)):
         x, j = rects[i][1][0], rects[i][1][1]
-        if (rects[i][0][1]):
+        if rects[i][0][1]:
             dp[j] = query(x_max_dp_ordered_set, x)+1
             result = max(result, dp[j])
         else:

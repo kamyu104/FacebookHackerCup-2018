@@ -4,7 +4,7 @@
 # https://www.facebook.com/hackercup/problem/659927157741948/
 #
 # Time:  O(NlogN), there is no built-in rbtree in python, so we can use skip list alternatively,
-#                  which is much simpler than rbtree implementation
+#                  which implementation is much simpler than rbtree
 #                  and has the same complexity on average
 # Space: O(N)
 #

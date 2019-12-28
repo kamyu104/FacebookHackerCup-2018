@@ -113,7 +113,7 @@ def add_rect(rects, x1, y1, x2, y2):
         return
     i = len(rects)+1
     rects.append(((y1, 1), (x1, i)))
-    rects.append(((y2, 0), (x2, i)))
+    rects.append(((y2, -1), (x2, i)))
  
 def add_rects(x_ordered_set, rects, x):
     it = x_ordered_set.lower_bound(x)
@@ -124,7 +124,7 @@ def add_rects(x_ordered_set, rects, x):
         X.append(it.val)
         it = it.nexts[0]
     for i in xrange(4):
-        add_rect(rects, X[i],X[i+1],X[i+2],X[i+3])
+        add_rect(rects, X[i], X[i+1], X[i+2], X[i+3])
  
 def query(x_max_dp_ordered_set, x):
     return x_max_dp_ordered_set.lower_bound((x+1, 0)).prevs[0].val[1]
@@ -177,7 +177,7 @@ def personal_space():
     dp = [0]*len(rects)
     for i in xrange(len(rects)):
         x, j = rects[i][1][0], rects[i][1][1]
-        if rects[i][0][1]:
+        if rects[i][0][1] > 0:
             dp[j] = query(x_max_dp_ordered_set, x)+1
             result = max(result, dp[j])
         else:

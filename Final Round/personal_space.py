@@ -130,7 +130,7 @@ def query(x_max_dp_ordered_set, x):
     return x_max_dp_ordered_set.lower_bound((x+1, 0)).prevs[0].val[1]
  
 def update(x_max_dp_ordered_set, x, v):
-    it = x_max_dp_ordered_set.lower_bound((x+1,0)).prevs[0]
+    it = x_max_dp_ordered_set.lower_bound((x+1, 0)).prevs[0]
     if v <= it.val[1]:
         return
     if it.val[0] < x:

@@ -19,7 +19,7 @@ class SkipNode(object):
         self.nexts = [None]*level
         self.prevs = [None]*level
 
-class Skiplist(object):
+class SkipList(object):
     P_NUMERATOR, P_DENOMINATOR = 1, 2  # P = 1/4 in redis implementation
     MAX_LEVEL = 32  # enough for 2^32 elements
 
@@ -90,8 +90,8 @@ class Skiplist(object):
 
     def __random_level(self):
         level = 1
-        while randint(1, Skiplist.P_DENOMINATOR) <= Skiplist.P_NUMERATOR and \
-              level < Skiplist.MAX_LEVEL:
+        while randint(1, SkipList.P_DENOMINATOR) <= SkipList.P_NUMERATOR and \
+              level < SkipList.MAX_LEVEL:
             level += 1
         return level
 
@@ -150,7 +150,7 @@ def personal_space():
         intervals.append((((B+1, X), -1)))
     # bottom-up line sweep to generate all possible fish placement "rectangles"
     intervals.sort()
-    x_ordered_set = Skiplist()
+    x_ordered_set = SkipList()
     for i in xrange(3):
         x_ordered_set.add(-1-i)
         x_ordered_set.add(MAX_X_Y+1+i)
@@ -171,7 +171,7 @@ def personal_space():
         i += 1
     # bottom-up line sweep DP on rectangles
     rects.sort()
-    x_max_dp_ordered_set = Skiplist((float("inf"), float("inf")))
+    x_max_dp_ordered_set = SkipList((float("inf"), float("inf")))
     x_max_dp_ordered_set.add((float("-inf"), 0))
     result = 0
     dp = [0]*len(rects)

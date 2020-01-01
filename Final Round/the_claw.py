@@ -99,9 +99,9 @@ def the_claw():
         result -= P[i][Y]  # M-sum(Y)
         P_Y[P[i][Y]].append(P[i][X])
         if i:
-            intervals[i-1] = (max(P[i-1][X], P[i][X]), min(P[i-1][X], P[i][X]))
+            intervals[i-1] = (min(P[i-1][X], P[i][X]), max(P[i-1][X], P[i][X]))
 
-    P.sort(), intervals.sort()
+    P.sort(), intervals.sort(key=lambda x: x[R])
     i, descending_stk = 0, []
     for interval in intervals:
         while i < len(P) and P[i][X] <= interval[R]:
@@ -131,6 +131,6 @@ def the_claw():
     return 2*result
 
 X, Y = range(2)
-R, L = range(2)
+L, R = range(2)
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, the_claw())

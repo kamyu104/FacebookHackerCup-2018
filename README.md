@@ -50,4 +50,4 @@ You can relive the magic of the 2018 Hacker Cup World Finals by watching the [Li
 |3| [Ethan Sums Shortest Distances](https://www.facebook.com/hackercup/problem/278591946122939/)| [Python](./Final%20Round/ethan_sums_shortest_distances.py)<br> [Python](./Final%20Round/ethan_sums_shortest_distances2.py)<br> [Python](./Final%20Round/ethan_sums_shortest_distances3.py)<br> [Python](./Final%20Round/ethan_sums_shortest_distances4.py) | _O(N^3)_ | _O(N^2)_ | Easy | | Prefix Sum, DP |
 |4| [Personal Space](https://www.facebook.com/hackercup/problem/659927157741948/)| [PyPy](./Final%20Round/personal_space.py) | _O(NlogN)_ | _O(N)_ | Medium | | Skip List, Line Sweep, DP |
 |5| [City Lights](https://www.facebook.com/hackercup/problem/162710881087828/)| | | | Hard | | |
-|6| [The Claw](https://www.facebook.com/hackercup/problem/278597692763175/)| [Python](./Final%20Round/the_claw.py) | _O(NlogN)_ | _O(N)_ | Medium | | Mono Stack, Segment Tree, DP |
+|6| [The Claw](https://www.facebook.com/hackercup/problem/278597692763175/)| [Python](./Final%20Round/the_claw.py) | _O(NlogN)_ | _O(N)_ | Medium | | Mono Stack, Binary Search, Segment Tree, DP |

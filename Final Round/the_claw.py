@@ -91,42 +91,45 @@ class SegmentTree(object):
 
 def the_claw():
     N, M = map(int, raw_input().strip().split())
-    P, R = [None]*N, [None]*(N-1)
-    P_Y, R_Y = defaultdict(list), defaultdict(list)
+    P, intervals = [None]*N, [None]*(N-1)
+    P_Y, intervals_Y = defaultdict(list), defaultdict(list)
     result = M
     for i in xrange(N):
         P[i] = tuple(map(int, raw_input().strip().split()))
-        result -= P[i][1]
-        P_Y[P[i][1]].append(P[i][0])
+        result -= P[i][Y]  # M-sum(Y)
+        P_Y[P[i][Y]].append(P[i][0])
         if i:
-            R[i-1] = (max(P[i-1][0], P[i][0]), min(P[i-1][0],P[i][0]))
+            intervals[i-1] = (max(P[i-1][X], P[i][X]), min(P[i-1][X], P[i][X]))
 
-    P.sort(), R.sort()
-    j, descending_stk = 0, []
-    for i in xrange(len(R)):
-        while j < len(P) and P[j][0] <= R[i][0]:
-            while descending_stk and descending_stk[-1][1] <= P[j][1]:
+    P.sort(), intervals.sort()
+    i, descending_stk = 0, []
+    for interval in intervals:
+        while i < len(P) and P[i][0] <= interval[R]:
+            while descending_stk and descending_stk[-1][Y] <= P[i][Y]:
                 descending_stk.pop()
-            descending_stk.append(P[j])
-            j += 1
-        y = descending_stk[bisect_left(descending_stk, (R[i][1], 0))][1]
-        result += y+1
-        R_Y[y].append(R[i])
+            descending_stk.append(P[i])
+            i += 1
+        max_y = descending_stk[bisect_left(descending_stk, (interval[L], 0))][Y]  # H[i] = max{y in range [interval[L], interval[R]]}
+        result += max_y+1  # (M-sum(Y)) + sum(H) + len(intervals)
+        intervals_Y[max_y].append(interval)
 
-    for i in P_Y.iterkeys():
-        P_Y[i].sort(), R_Y[i].sort()
-        segment_tree = SegmentTree(len(P_Y[i])+1)
-        k, dp = 0, -1
-        for j in xrange(len(P_Y[i])+1):
-            while k < len(R_Y[i]) and \
-                  R_Y[i][k][0] < (float("inf") if j == len(P_Y[i]) else P_Y[i][j]):
-                segment_tree.update(0, bisect_left(P_Y[i], R_Y[i][k][1]), 1)
-                k += 1
-            dp = max(dp+1, segment_tree.query(0, len(P_Y[i])))
-            segment_tree.update(j, j, dp)
+    for y in P_Y.iterkeys():
+        P_Y[y].sort(), intervals_Y[y].sort()
+        segment_tree = SegmentTree(len(P_Y[y])+1)
+        j, dp = 0, -1
+        for i in xrange(len(P_Y[y])+1):
+            while j < len(intervals_Y[y]) and \
+                  (i == len(P_Y[y]) or intervals_Y[y][j][R] < P_Y[y][i]):
+                segment_tree.update(0, bisect_left(P_Y[y], intervals_Y[y][j][L]), 1)
+                j += 1
+            # dp[i] = max{dp[j] + 1 + (number of intervals_Y contained strictly between P_Y[y][j] and P_Y[y][i])}
+            dp = max(dp+1, segment_tree.query(0, len(P_Y[y])))
+            segment_tree.update(i, i, dp)
         result -= dp
 
     return 2*result
 
+X, Y = range(2)
+R, L = range(2)
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, the_claw())

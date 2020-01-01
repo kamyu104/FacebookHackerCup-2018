@@ -97,14 +97,14 @@ def the_claw():
     for i in xrange(N):
         P[i] = tuple(map(int, raw_input().strip().split()))
         result -= P[i][Y]  # M-sum(Y)
-        P_Y[P[i][Y]].append(P[i][0])
+        P_Y[P[i][Y]].append(P[i][X])
         if i:
             intervals[i-1] = (max(P[i-1][X], P[i][X]), min(P[i-1][X], P[i][X]))
 
     P.sort(), intervals.sort()
     i, descending_stk = 0, []
     for interval in intervals:
-        while i < len(P) and P[i][0] <= interval[R]:
+        while i < len(P) and P[i][X] <= interval[R]:
             while descending_stk and descending_stk[-1][Y] <= P[i][Y]:
                 descending_stk.pop()
             descending_stk.append(P[i])

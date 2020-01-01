@@ -118,7 +118,8 @@ def the_claw():
         segment_tree = SegmentTree(len(P_Y[i])+1)
         k, dp = 0, -1
         for j in xrange(len(P_Y[i])+1):
-            while k < len(R_Y[i]) and R_Y[i][k][0] < (float("inf") if j == len(P_Y[i]) else P_Y[i][j]):
+            while k < len(R_Y[i]) and \
+                  R_Y[i][k][0] < (float("inf") if j == len(P_Y[i]) else P_Y[i][j]):
                 segment_tree.update(0, bisect_left(P_Y[i], R_Y[i][k][1]), 1)
                 k += 1
             dp = max(dp+1, segment_tree.query(0, len(P_Y[i])))

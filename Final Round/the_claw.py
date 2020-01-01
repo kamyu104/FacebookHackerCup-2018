@@ -122,7 +122,7 @@ def the_claw():
                   (i == len(P_Y[y]) or intervals_Y[y][j][R] < P_Y[y][i]):
                 segment_tree.update(0, bisect_left(P_Y[y], intervals_Y[y][j][L]), 1)
                 j += 1
-            # dp[i] = max{dp[j] + 1 + (number of intervals_Y contained strictly between P_Y[y][j] and P_Y[y][i])}
+            # dp[i] = max{dp[j] + 1 + (number of intervals_Y[y] contained strictly between P_Y[y][j] and P_Y[y][i])}
             dp = max(dp+1, segment_tree.query(0, i-1))
             segment_tree.update(i, i, dp)
         result -= dp

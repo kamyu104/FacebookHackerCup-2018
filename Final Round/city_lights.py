@@ -113,37 +113,37 @@ def add(a, b):
     return (a+b)%MOD
 
 def compute_accu(i, dp, dp_accu):
-    for h in xrange(len(dp[0])):
-        for b in xrange(len(dp[0][0])):
+    for h in xrange(len(dp[i])):
+        for b in xrange(len(dp[i][h])):
             dp_accu[i][h+1][b] = add(dp_accu[i][h][b], dp[i][h][b])
  
 def city_lights_helper(i, H, children, windows, dp, dp_accu):
     dp[i][0][0] = 1
-    for c in children[i]:
+    for c in children[i]:  # O(S) times
         city_lights_helper(c, H, children, windows, dp, dp_accu)
         compute_accu(i, dp, dp_accu)
-        tmp = [[0 for _ in xrange(len(dp[0][0]))] for _ in xrange(len(dp[0]))]
-        for h in xrange(len(dp[0])):
-            for b in xrange(len(dp[0][0])):
-                for b2 in xrange(len(dp[0][0])-b):
+        tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
+        for h in xrange(len(dp[i])):  # O(W+S) times
+            for b in xrange(len(dp[i][h])):  # O(W) times
+                for b2 in xrange(len(dp[i][h])-b):  # O(W) times
                     tmp[h][b+b2] = add(tmp[h][b+b2], dp[i][h][b]*dp_accu[c][h+1][b2] + dp_accu[i][h][b]*dp[c][h][b2])
         dp[i][:] = tmp
 
     windows[i].sort(reverse=True)
-    tmp = [[0 for _ in xrange(len(dp[0][0]))] for _ in xrange(len(dp[0]))]
+    tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
     power = 1
     for j in reversed(xrange(len(windows[i])+1)):
         h2 = windows[i][j] if j < len(windows[i]) else 0
-        for h in xrange(len(dp[0])):
-            for b in xrange(len(dp[0][0])):
+        for h in xrange(len(dp[i])):
+            for b in xrange(len(dp[i][h])):
                 tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])
         if j < len(windows[i]):
             power *= 2
     dp[i][:] = tmp
 
-    for h in xrange(H[i], len(dp[0])):
-        for b in xrange(len(dp[0][0])):
-            if b+1 < len(dp[0][0]):
+    for h in xrange(H[i], len(dp[i])):
+        for b in xrange(len(dp[i][h])):
+            if b+1 < len(dp[i][h]):
                 dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])
             dp[i][h][b] = 0
     compute_accu(i, dp, dp_accu)
@@ -193,7 +193,7 @@ def city_lights():
 
     dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set))] for _ in xrange(len(H))]
     dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set)+1)] for _ in xrange(len(H))]
-    city_lights_helper(0, H, children, windows, dp, dp_accu)
+    city_lights_helper(0, H, children, windows, dp, dp_accu)  # Time: O(S*(W+S)*W^2)
     result = 0
     for i in xrange(1, len(dp[0][0])):
         result = add(result, i*dp[0][0][i])

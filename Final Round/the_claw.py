@@ -113,7 +113,7 @@ def the_claw():
         result += max_y+1  # (M-sum(Y)) + sum(H) + len(intervals), counting extra 1 is assumed to raise each target by default
         intervals_Y[max_y].append(interval)
 
-    for y in P_Y.iterkeys():
+    for y in P_Y.iterkeys():  # raise decision could be made independently at different y
         P_Y[y].sort(), intervals_Y[y].sort()
         segment_tree = SegmentTree(len(P_Y[y])+1)
         j, dp = 0, -1

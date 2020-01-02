@@ -142,9 +142,8 @@ def city_lights_helper(i, H, children, windows, dp, dp_accu):
     dp[i][:] = tmp
 
     for h in xrange(H[i], len(dp[i])):
-        for b in xrange(len(dp[i][h])):
-            if b+1 < len(dp[i][h]):
-                dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])
+        for b in xrange(len(dp[i][h])-1):
+            dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])
             dp[i][h][b] = 0
 
 def city_lights():

@@ -22,7 +22,7 @@ def city_lights_helper(i, H, children, windows, dp, dp_accu):
     dp[i][0][0] = 1
     for c in children[i]:  # O(S) times
         city_lights_helper(c, H, children, windows, dp, dp_accu)
-        compute_accu(i, dp, dp_accu)
+        compute_accu(i, dp, dp_accu), compute_accu(c, dp, dp_accu)
         tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
         for h in xrange(len(dp[i])):  # O(W+S) times
             for b in xrange(len(dp[i][h])):  # O(W) times
@@ -47,7 +47,6 @@ def city_lights_helper(i, H, children, windows, dp, dp_accu):
             if b+1 < len(dp[i][h]):
                 dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])
             dp[i][h][b] = 0
-    compute_accu(i, dp, dp_accu)
 
 def city_lights():
     W, S = map(int, raw_input().strip().split())

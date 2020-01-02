@@ -110,7 +110,7 @@ def the_claw():
             descending_stk.append(P[i])
             i += 1
         max_y = descending_stk[bisect_left(descending_stk, (interval[L], 0))][Y]  # H[i] = max{y in range [interval[L], interval[R]]}
-        result += max_y+1  # (M-sum(Y)) + sum(H) + len(intervals)
+        result += max_y+1  # (M-sum(Y)) + sum(H) + len(intervals), counting extra 1 is assumed to raise each target by default
         intervals_Y[max_y].append(interval)
 
     for y in P_Y.iterkeys():
@@ -122,8 +122,8 @@ def the_claw():
                   (i == len(P_Y[y]) or intervals_Y[y][j][R] < P_Y[y][i]):
                 segment_tree.update(0, bisect_left(P_Y[y], intervals_Y[y][j][L]), 1)
                 j += 1
-            # dp[i] = max(max{dp[j], where 0 <= j < i} + 1,
-            #             max{dp[k] + (number of intervals_Y[y] contained ending in range [P_Y[y][k], P_Y[y][i]))}),
+            # dp[i] = max(max{dp[j], where 0 <= j < i} + 1 (which is to raise target i),
+            #             max{dp[k] + (number of intervals_Y[y] contained ending in range [P_Y[y][k], P_Y[y][i]))} (which is not to raise target i))
             dp = max(dp+1, segment_tree.query(0, i-1))
             segment_tree.update(i, i, dp)
         result -= dp

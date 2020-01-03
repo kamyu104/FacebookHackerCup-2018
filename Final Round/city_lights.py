@@ -3,10 +3,10 @@
 # Facebook Hacker Cup 2018 Final Round - City Lights
 # https://www.facebook.com/hackercup/problem/162710881087828/
 #
-# Time:  O(S * (W + S) * W^2), there is no built-in rbtree in python, so we can use skip list alternatively,
+# Time:  O(S * W^3), there is no built-in rbtree in python, so we can use skip list alternatively,
 #                              which implementation is much simpler than rbtree
 #                              and has the same complexity on average
-# Space: O(S * (W + S) * W)
+# Space: O(S * W^2)
 #
 
 from collections import defaultdict
@@ -123,7 +123,7 @@ def city_lights_helper(i, H, children, windows, dp, dp_accu):
         city_lights_helper(c, H, children, windows, dp, dp_accu)
         compute_accu(i, dp, dp_accu), compute_accu(c, dp, dp_accu)
         tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
-        for h in xrange(len(dp[i])):  # O(W+S) times
+        for h in xrange(len(dp[i])):  # O(W) times
             for b in xrange(len(dp[i][h])):  # O(W) times
                 for b2 in xrange(len(dp[i][h])-b):  # O(W) times
                     tmp[h][b+b2] = add(tmp[h][b+b2], dp[i][h][b]*dp_accu[c][h+1][b2] + dp_accu[i][h][b]*dp[c][h][b2])
@@ -188,10 +188,11 @@ def city_lights():
     for x, y in W_P:  # Time: O(WlogS)
         c = lookup[x] if x in lookup else ordered_set.lower_bound(((x, MAX_X+2), 0)).prevs[0].val[1]
         windows[c].append(y)
+    max_y = max(W_P, key=lambda x: x[Y])
 
-    dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set))] for _ in xrange(len(H))]
-    dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set)+1)] for _ in xrange(len(H))]
-    city_lights_helper(0, H, children, windows, dp, dp_accu)  # Time: O(S*(W+S)*W^2)
+    dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(max_y+1)] for _ in xrange(len(H))]
+    dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(max_y+2)] for _ in xrange(len(H))]
+    city_lights_helper(0, H, children, windows, dp, dp_accu)  # Time: O(S*W^3)
     result = 0
     for i in xrange(1, len(dp[0][0])):
         result = add(result, i*dp[0][0][i])

@@ -18,10 +18,10 @@ def compute_accu(i, dp, dp_accu):
         for b in xrange(len(dp[i][h])):
             dp_accu[i][h+1][b] = add(dp_accu[i][h][b], dp[i][h][b])
  
-def city_lights_helper(i, H, children, windows, dp, dp_accu):
+def city_lights_helper(i, H, children, window_heights, dp, dp_accu):
     dp[i][0][0] = 1
     for c in children[i]:  # O(S) times
-        city_lights_helper(c, H, children, windows, dp, dp_accu)
+        city_lights_helper(c, H, children, window_heights, dp, dp_accu)
         compute_accu(i, dp, dp_accu), compute_accu(c, dp, dp_accu)
         tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
         for h in xrange(len(dp[i])):  # O(W) times
@@ -30,15 +30,15 @@ def city_lights_helper(i, H, children, windows, dp, dp_accu):
                     tmp[h][b+b2] = add(tmp[h][b+b2], dp[i][h][b]*dp_accu[c][h+1][b2] + dp_accu[i][h][b]*dp[c][h][b2])
         dp[i][:] = tmp
 
-    windows[i].sort(reverse=True)
+    window_heights[i].sort(reverse=True)
     tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
     power = 1
-    for j in reversed(xrange(len(windows[i])+1)):
-        h2 = windows[i][j] if j < len(windows[i]) else 0
+    for j in reversed(xrange(len(window_heights[i])+1)):
+        h2 = window_heights[i][j] if j < len(window_heights[i]) else 0
         for h in xrange(len(dp[i])):
             for b in xrange(len(dp[i][h])):
                 tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])
-        if j < len(windows[i]):
+        if j < len(window_heights[i]):
             power *= 2
     dp[i][:] = tmp
 
@@ -85,15 +85,15 @@ def city_lights():
         ordered_set.remove(((a, b), c))
         lookup[x] = c
 
-    windows = defaultdict(list)
+    window_heights = defaultdict(list)
     for x, y in W_P:  # Time: O(WlogS)
         c = lookup[x] if x in lookup else ordered_set[bisect_left(ordered_set, ((x, MAX_X+2), 0))-1][1]
-        windows[c].append(y)
-    max_y = max(W_P, key=lambda x: x[Y])
+        window_heights[c].append(y)
+    max_y = max(W_P, key=lambda x: x[Y])[Y]
 
     dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(max_y+1)] for _ in xrange(len(H))]
     dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(max_y+2)] for _ in xrange(len(H))]
-    city_lights_helper(0, H, children, windows, dp, dp_accu)  # Time: O(S*W^3)
+    city_lights_helper(0, H, children, window_heights, dp, dp_accu)  # Time: O(S*W^3)
     result = 0
     for i in xrange(1, len(dp[0][0])):
         result = add(result, i*dp[0][0][i])

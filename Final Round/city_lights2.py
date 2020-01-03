@@ -69,8 +69,7 @@ def city_lights():
 
     S_P.sort(key=lambda x: x[Y])  # Time: O(SlogS)
     children = defaultdict(list)
-    ordered_set, H, lookup = [], [1], {}
-    ordered_set.append(((0, max_x+1), 0))
+    ordered_set, H, lookup = [((0, max_x+1), 0)], [1], {}
     for x, y in S_P:  # Time: O(S^2)
         (a, b), c = ordered_set[bisect_left(ordered_set, ((x, max_x+2), 0))-1]
         if not a <= x <= b:

@@ -156,6 +156,7 @@ def city_lights():
     for i in xrange(S):
         S_P[i]= map(int, raw_input().strip().split())
         y_set.add(S_P[i][Y])
+    max_x = max(map(max, [W_P, S_P]))[X]
     
     order = {}
     for i, y in enumerate(sorted(y_set)):  # Time: O((W+S)log(W+S))
@@ -168,9 +169,9 @@ def city_lights():
     S_P.sort(key=lambda x: x[Y])  # Time: O(SlogS)
     children = defaultdict(list)
     ordered_set, H, lookup = SkipList(((float("inf"), float("inf")), float("inf"))), [1], {}
-    ordered_set.add(((0, MAX_X+1), 0))
+    ordered_set.add(((0, max_x+1), 0))
     for x, y in S_P:  # Time: O(SlogS)
-        (a, b), c = ordered_set.lower_bound(((x, MAX_X+2), 0)).prevs[0].val
+        (a, b), c = ordered_set.lower_bound(((x, max_x+2), 0)).prevs[0].val
         if not a <= x <= b:
             continue
         if a < x:
@@ -186,7 +187,7 @@ def city_lights():
 
     window_heights = defaultdict(list)
     for x, y in W_P:  # Time: O(WlogS)
-        c = lookup[x] if x in lookup else ordered_set.lower_bound(((x, MAX_X+2), 0)).prevs[0].val[1]
+        c = lookup[x] if x in lookup else ordered_set.lower_bound(((x, max_x+2), 0)).prevs[0].val[1]
         window_heights[c].append(y)
 
     dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set))] for _ in xrange(len(H))]
@@ -198,7 +199,6 @@ def city_lights():
     return result
 
 MOD = 10**9+7
-MAX_X = 10**9
 X, Y = range(2)
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, city_lights())

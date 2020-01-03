@@ -7,6 +7,10 @@
 # Space: O(S * (W + S) * W)
 #
 
+# based on official solution:
+# dp[i][h][b] = # of combinations in i's subtree requiring b buildings, with height h still required
+# dp_accu[i][h][b] = sum of dp[i][0..(h-1)][b]
+
 from collections import defaultdict
 from bisect import bisect_left
 

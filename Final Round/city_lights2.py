@@ -30,15 +30,15 @@ def city_lights_helper(i, H, children, window_heights, dp, dp_accu):
                     tmp[h][b+b2] = add(tmp[h][b+b2], dp[i][h][b]*dp_accu[c][h+1][b2] + dp_accu[i][h][b]*dp[c][h][b2])
         dp[i][:] = tmp
 
-    window_heights[i].sort(reverse=True)
+    window_heights[i].sort()
     tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
     power = 1
-    for j in reversed(xrange(len(window_heights[i])+1)):
-        h2 = window_heights[i][j] if j < len(window_heights[i]) else 0
+    for j in xrange(len(window_heights[i])+1):
+        h2 = window_heights[i][j-1] if j-1 >= 0 else 0
         for h in xrange(len(dp[i])):
             for b in xrange(len(dp[i][h])):
                 tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])
-        if j < len(window_heights[i]):
+        if j-1 >= 0:
             power *= 2
     dp[i][:] = tmp
 

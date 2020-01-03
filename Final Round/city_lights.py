@@ -117,10 +117,10 @@ def compute_accu(i, dp, dp_accu):
         for b in xrange(len(dp[i][h])):
             dp_accu[i][h+1][b] = add(dp_accu[i][h][b], dp[i][h][b])
  
-def city_lights_helper(i, H, children, window_heights, dp, dp_accu):
+def city_lights_helper(i, children, building_heights, window_heights, dp, dp_accu):
     dp[i][0][0] = 1
     for c in children[i]:  # O(S) times
-        city_lights_helper(c, H, children, window_heights, dp, dp_accu)
+        city_lights_helper(c, children, building_heights, window_heights, dp, dp_accu)
         compute_accu(i, dp, dp_accu), compute_accu(c, dp, dp_accu)
         tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
         for h in xrange(len(dp[i])):  # O(W+S) times
@@ -141,7 +141,7 @@ def city_lights_helper(i, H, children, window_heights, dp, dp_accu):
             power *= 2
     dp[i][:] = tmp
 
-    for h in xrange(H[i], len(dp[i])):
+    for h in xrange(building_heights[i], len(dp[i])):
         for b in xrange(len(dp[i][h])-1):
             dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])
             dp[i][h][b] = 0
@@ -168,20 +168,20 @@ def city_lights():
 
     S_P.sort(key=lambda x: x[Y])  # Time: O(SlogS)
     children = defaultdict(list)
-    ordered_set, H, lookup = SkipList(((float("inf"), float("inf")), float("inf"))), [1], {}
+    ordered_set, building_heights, lookup = SkipList(((float("inf"), float("inf")), float("inf"))), [1], {}
     ordered_set.add(((0, max_x+1), 0))
     for x, y in S_P:  # Time: O(SlogS)
         (a, b), c = ordered_set.lower_bound(((x, max_x+2), 0)).prevs[0].val
         if not a <= x <= b:
             continue
         if a < x:
-            children[c].append(len(H))
-            ordered_set.add(((a, x-1), len(H)))
-            H.append(y)
+            children[c].append(len(building_heights))
+            ordered_set.add(((a, x-1), len(building_heights)))
+            building_heights.append(y)
         if b > x:
-            children[c].append(len(H))
-            ordered_set.add(((x+1, b), len(H)))
-            H.append(y)
+            children[c].append(len(building_heights))
+            ordered_set.add(((x+1, b), len(building_heights)))
+            building_heights.append(y)
         ordered_set.remove(((a, b), c))
         lookup[x] = c
 
@@ -190,9 +190,9 @@ def city_lights():
         c = lookup[x] if x in lookup else ordered_set.lower_bound(((x, max_x+2), 0)).prevs[0].val[1]
         window_heights[c].append(y)
 
-    dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set))] for _ in xrange(len(H))]
-    dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set)+1)] for _ in xrange(len(H))]
-    city_lights_helper(0, H, children, window_heights, dp, dp_accu)  # Time: O(S*(W+S)*W^2)
+    dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set))] for _ in xrange(len(building_heights))]
+    dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set)+1)] for _ in xrange(len(building_heights))]
+    city_lights_helper(0, children, building_heights, window_heights, dp, dp_accu)  # Time: O(S*(W+S)*W^2)
     result = 0
     for i in xrange(1, len(dp[0][0])):
         result = add(result, i*dp[0][0][i])

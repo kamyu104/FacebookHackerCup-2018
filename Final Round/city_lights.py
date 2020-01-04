@@ -116,6 +116,9 @@ class SkipList(object):
 def add(a, b):
     return (a+b)%MOD
 
+def multiply(a, b):
+    return (a*b)%MOD
+
 def compute_accu(i, dp, dp_accu):
     for h in xrange(len(dp[i])):
         for b in xrange(len(dp[i][h])):

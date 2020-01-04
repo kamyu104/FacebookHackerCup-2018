@@ -17,6 +17,9 @@ from bisect import bisect_left
 def add(a, b):
     return (a+b)%MOD
 
+def multiply(a, b):
+    return (a*b)%MOD
+
 def compute_accu(i, dp, dp_accu):
     for h in xrange(len(dp[i])):
         for b in xrange(len(dp[i][h])):
@@ -43,7 +46,7 @@ def city_lights_helper(i, children, building_heights, window_heights, dp, dp_acc
             for b in xrange(len(dp[i][h])):  # O(W) times
                 tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])
         if j-1 >= 0:
-            power *= 2
+            power = multiply(power, 2)
     dp[i][:] = tmp
 
     for h in xrange(building_heights[i], len(dp[i])):  # O(S) times

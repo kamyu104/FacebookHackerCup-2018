@@ -60,17 +60,13 @@ def city_lights_helper(i, children, building_height, window_heights, idx_to_heig
 def city_lights():
     W, S = map(int, raw_input().strip().split())
     W_P, S_P = [None]*W, [None]*S
-    y_set = set([0])
+    w_y_set = set([0])
     for i in xrange(W):
         W_P[i]= map(int, raw_input().strip().split())
-        y_set.add(W_P[i][Y])
+        w_y_set.add(W_P[i][Y])
     for i in xrange(S):
         S_P[i]= map(int, raw_input().strip().split())
-        y_set.add(S_P[i][Y])
 
-    w_y_set = set([0])
-    for x, y in W_P:
-        w_y_set.add(y)
     idx_to_height, height_to_idx = [], {}
     for i, y in enumerate(sorted(w_y_set)):  # Time: O(WlogW), coordinate compression of y of W
         idx_to_height.append(y)

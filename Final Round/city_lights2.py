@@ -3,8 +3,8 @@
 # Facebook Hacker Cup 2018 Final Round - City Lights
 # https://www.facebook.com/hackercup/problem/162710881087828/
 #
-# Time:  O(S * (W + S) * W^2)
-# Space: O(S * (W + S) * W)
+# Time:  O(S * W^3)
+# Space: O(S * W^2)
 #
 
 # based on official solution:
@@ -25,13 +25,13 @@ def compute_accu(i, dp, dp_accu):
         for b in xrange(len(dp[i][h])):
             dp_accu[i][h+1][b] = add(dp_accu[i][h][b], dp[i][h][b])
  
-def city_lights_helper(i, children, building_height, window_heights, dp, dp_accu):
+def city_lights_helper(i, children, building_height, window_heights, height_to_idx, idx_to_height, dp, dp_accu):
     dp[i][0][0] = 1
     for c in children[i]:  # O(2) times
-        city_lights_helper(c, children, building_height, window_heights, dp, dp_accu)
+        city_lights_helper(c, children, building_height, window_heights, height_to_idx, idx_to_height, dp, dp_accu)
         compute_accu(i, dp, dp_accu), compute_accu(c, dp, dp_accu)
         tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
-        for h in xrange(len(dp[i])):  # O(W+S) times
+        for h in xrange(len(dp[i])):  # O(W) times
             for b in xrange(len(dp[i][h])):  # O(W) times
                 for b2 in xrange(len(dp[i][h])-b):  # O(W) times
                     # new_dp[i][h][b+b2] = dp[i][h][b]*dp[c][h][b2] + dp[i][h][b]*dp[c][0..(h-1)][b2] + dp[i][0..(h-1)][b]*dp[c][h][b2]
@@ -42,15 +42,17 @@ def city_lights_helper(i, children, building_height, window_heights, dp, dp_accu
     tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
     power = 1
     for j in xrange(len(window_heights[i])+1):  # O(W) times
-        h2 = window_heights[i][j-1] if j-1 >= 0 else 0
-        for h in xrange(len(dp[i])):  # O(W+S) times
+        h2 = height_to_idx[window_heights[i][j-1]] if j-1 >= 0 else 0
+        for h in xrange(len(dp[i])):  # O(W) times
             for b in xrange(len(dp[i][h])):  # O(W) times
                 tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])  # count # of combinations
         if j-1 >= 0:
             power = multiply(power, 2)
     dp[i][:] = tmp
 
-    for h in xrange(building_height[i], len(dp[i])):  # O(W+S) times
+    for h in xrange(1, len(dp[i])):  # O(W) times
+        if idx_to_height[h] < building_height[i]:
+            continue
         for b in xrange(len(dp[i][h])-1):  # O(W) times
             dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])  # make this node as a new building with height h
             dp[i][h][b] = 0  # no need to keep tracking count on any not-yet-satisfied path
@@ -93,13 +95,19 @@ def city_lights():
         lookup[x] = c
 
     window_heights = defaultdict(list)
+    w_y_set = set([0])
     for x, y in W_P:  # Time: O(WlogS), group windows by tree nodes
         c = lookup[x] if x in lookup else ordered_set[bisect_left(ordered_set, ((x, float("inf")), float("inf")))-1][1]
         window_heights[c].append(y)
-
-    dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set))] for _ in xrange(len(building_height))]
-    dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set)+1)] for _ in xrange(len(building_height))]
-    city_lights_helper(0, children, building_height, window_heights, dp, dp_accu)  # Time: O(S*(W+S)*W^2)
+        w_y_set.add(y)
+    height_to_idx = {}
+    idx_to_height = []
+    for i, y in enumerate(sorted(w_y_set)):  # Time: O(WlogW), coordinate compression of y of W
+        height_to_idx[y] = i
+        idx_to_height.append(y)
+    dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(w_y_set))] for _ in xrange(len(building_height))]
+    dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(w_y_set)+1)] for _ in xrange(len(building_height))]
+    city_lights_helper(0, children, building_height, window_heights, height_to_idx, idx_to_height, dp, dp_accu)  # Time: O(S*W^3)
     result = 0
     for i in xrange(1, len(dp[0][0])):  # Time: O(W), compute expected number
         result = add(result, i*dp[0][0][i])

@@ -21,8 +21,8 @@ def multiply(a, b):
     return (a*b)%MOD
 
 def compute_accu(i, dp, dp_accu):
-    for h in xrange(len(dp[i])):
-        for b in xrange(len(dp[i][h])):
+    for h in xrange(len(dp[i])):  # O(W) times
+        for b in xrange(len(dp[i][h])):  # O(min(S, W)) times
             dp_accu[i][h+1][b] = add(dp_accu[i][h][b], dp[i][h][b])
  
 def city_lights_helper(i, children, building_height, window_heights, idx_to_height, dp, dp_accu):

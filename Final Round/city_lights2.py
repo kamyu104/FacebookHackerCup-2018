@@ -101,7 +101,7 @@ def city_lights():
     dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set)+1)] for _ in xrange(len(building_heights))]
     city_lights_helper(0, children, building_heights, window_heights, dp, dp_accu)  # Time: O(S*(W+S)*W^2)
     result = 0
-    for i in xrange(1, len(dp[0][0])):
+    for i in xrange(1, len(dp[0][0])):  # Time: O(W), compute expected number
         result = add(result, i*dp[0][0][i])
     return result
 

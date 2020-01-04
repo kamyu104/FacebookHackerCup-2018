@@ -3,10 +3,10 @@
 # Facebook Hacker Cup 2018 Final Round - City Lights
 # https://www.facebook.com/hackercup/problem/162710881087828/
 #
-# Time:  O(S * W^3), there is no built-in rbtree in python, so we can use skip list alternatively,
-#                    which implementation is much simpler than rbtree
-#                    and has the same complexity on average
-# Space: O(S * W^2)
+# Time:  O(S^2 * W^2), there is no built-in rbtree in python, so we can use skip list alternatively,
+#                      which implementation is much simpler than rbtree
+#                      and has the same complexity on average
+# Space: O(S * W * min(S, W))
 #
 
 # based on official solution:
@@ -120,8 +120,8 @@ def multiply(a, b):
     return (a*b)%MOD
 
 def compute_accu(i, dp, dp_accu):
-    for h in xrange(len(dp[i])):
-        for b in xrange(len(dp[i][h])):
+    for h in xrange(len(dp[i])):  # O(W) times
+        for b in xrange(len(dp[i][h])):  # O(min(S, W)) times
             dp_accu[i][h+1][b] = add(dp_accu[i][h][b], dp[i][h][b])
  
 def city_lights_helper(i, children, building_height, window_heights, idx_to_height, dp, dp_accu):
@@ -131,8 +131,8 @@ def city_lights_helper(i, children, building_height, window_heights, idx_to_heig
         compute_accu(i, dp, dp_accu), compute_accu(c, dp, dp_accu)
         tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
         for h in xrange(len(dp[i])):  # O(W) times
-            for b in xrange(len(dp[i][h])):  # O(W) times
-                for b2 in xrange(len(dp[i][h])-b):  # O(W) times
+            for b in xrange(len(dp[i][h])):  # O(min(S, W)) times
+                for b2 in xrange(len(dp[i][h])-b):  # O(min(S, W)) times
                     # new_dp[i][h][b+b2] = dp[i][h][b]*dp[c][h][b2] + dp[i][h][b]*dp[c][0..(h-1)][b2] + dp[i][0..(h-1)][b]*dp[c][h][b2]
                     tmp[h][b+b2] = add(tmp[h][b+b2], dp[i][h][b]*dp_accu[c][h+1][b2] + dp_accu[i][h][b]*dp[c][h][b2])
         dp[i][:] = tmp
@@ -143,7 +143,7 @@ def city_lights_helper(i, children, building_height, window_heights, idx_to_heig
     for j in xrange(len(window_heights[i])+1):  # O(W) times
         h2 = window_heights[i][j-1] if j-1 >= 0 else 0
         for h in xrange(len(dp[i])):  # O(W) times
-            for b in xrange(len(dp[i][h])):  # O(W) times
+            for b in xrange(len(dp[i][h])):  # O(min(S, W)) times
                 tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])  # count # of combinations
         if j-1 >= 0:
             power = multiply(power, 2)
@@ -152,7 +152,7 @@ def city_lights_helper(i, children, building_height, window_heights, idx_to_heig
     for h in xrange(1, len(dp[i])):  # O(W) times
         if idx_to_height[h] < building_height[i]:
             continue
-        for b in xrange(len(dp[i][h])-1):  # O(W) times
+        for b in xrange(len(dp[i][h])-1):  # O(min(S, W)) times
             dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])  # make this node as a new building with height h
             dp[i][h][b] = 0  # no need to keep tracking count on any not-yet-satisfied path
 
@@ -195,11 +195,11 @@ def city_lights():
         c = lookup[x] if x in lookup else ordered_set.lower_bound(((x, float("inf")), float("inf"))).prevs[0].val[1]
         window_heights[c].append(height_to_idx[y])
 
-    dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(w_y_set))] for _ in xrange(len(building_height))]
-    dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(w_y_set)+1)] for _ in xrange(len(building_height))]
-    city_lights_helper(0, children, building_height, window_heights, idx_to_height, dp, dp_accu)  # Time: O(S*W^3)
+    dp = [[[0 for _ in xrange(min(len(building_height), len(W_P))+1)] for _ in xrange(len(w_y_set))] for _ in xrange(len(building_height))]
+    dp_accu = [[[0 for _ in xrange(min(len(building_height), len(W_P))+1)] for _ in xrange(len(w_y_set)+1)] for _ in xrange(len(building_height))]
+    city_lights_helper(0, children, building_height, window_heights, idx_to_height, dp, dp_accu)  # Time: O(S^2*W^2)
     result = 0
-    for i in xrange(1, len(dp[0][0])):  # Time: O(W), compute expected number
+    for i in xrange(1, len(dp[0][0])):  # Time: O(min(S, W)), compute expected number
         result = add(result, i*dp[0][0][i])
     return result
 

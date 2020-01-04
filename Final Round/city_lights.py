@@ -166,15 +166,7 @@ def city_lights():
     for i in xrange(S):
         S_P[i]= map(int, raw_input().strip().split())
         y_set.add(S_P[i][Y])
-    
-    order = {}
-    for i, y in enumerate(sorted(y_set)):  # Time: O((W+S)log(W+S)), coordinate compression of y
-        order[y] = i
-    for i in xrange(W):
-        W_P[i][Y] = order[W_P[i][Y]]
-    for i in xrange(S):
-        S_P[i][Y] = order[S_P[i][Y]]
-    
+
     w_y_set = set([0])
     for x, y in W_P:
         w_y_set.add(y)

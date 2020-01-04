@@ -77,7 +77,7 @@ def city_lights():
     S_P.sort(key=lambda x: x[Y])  # Time: O(SlogS)
     children = defaultdict(list)
     ordered_set, building_heights, lookup = [((float("-inf"), float("inf")), 0)], [1], {}
-    for x, y in S_P:  # Time: O(S^2)
+    for x, y in S_P:  # Time: O(S^2), split intervals by x of star in non-decreasing order of y to build up binary tree
         (a, b), c = ordered_set[bisect_left(ordered_set, ((x, float("inf")), float("inf")))-1]
         if not a <= x <= b:
             continue
@@ -93,7 +93,7 @@ def city_lights():
         lookup[x] = c
 
     window_heights = defaultdict(list)
-    for x, y in W_P:  # Time: O(WlogS)
+    for x, y in W_P:  # Time: O(WlogS), group windows by tree nodes
         c = lookup[x] if x in lookup else ordered_set[bisect_left(ordered_set, ((x, float("inf")), float("inf")))-1][1]
         window_heights[c].append(y)
 

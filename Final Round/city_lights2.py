@@ -34,6 +34,7 @@ def city_lights_helper(i, children, building_heights, window_heights, dp, dp_acc
         for h in xrange(len(dp[i])):  # O(W+S) times
             for b in xrange(len(dp[i][h])):  # O(W) times
                 for b2 in xrange(len(dp[i][h])-b):  # O(W) times
+                    # new_dp[i][h][b+b2] = dp[i][h][b]*dp[c][h][b2] + dp[i][h][b]*dp[c][0..(h-1)][b2] + dp[i][0..(h-1)][b]*dp[c][h][b2]
                     tmp[h][b+b2] = add(tmp[h][b+b2], dp[i][h][b]*dp_accu[c][h+1][b2] + dp_accu[i][h][b]*dp[c][h][b2])
         dp[i][:] = tmp
 
@@ -44,15 +45,15 @@ def city_lights_helper(i, children, building_heights, window_heights, dp, dp_acc
         h2 = window_heights[i][j-1] if j-1 >= 0 else 0
         for h in xrange(len(dp[i])):  # O(W+S) times
             for b in xrange(len(dp[i][h])):  # O(W) times
-                tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])
+                tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])  # count # of combinations
         if j-1 >= 0:
             power = multiply(power, 2)
     dp[i][:] = tmp
 
     for h in xrange(building_heights[i], len(dp[i])):  # O(S) times
         for b in xrange(len(dp[i][h])-1):  # O(W) times
-            dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])
-            dp[i][h][b] = 0
+            dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])  # make this node as a new building with height h
+            dp[i][h][b] = 0  # no need to keep tracking count on any not-yet-satisfied path
 
 def city_lights():
     W, S = map(int, raw_input().strip().split())

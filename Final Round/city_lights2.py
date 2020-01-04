@@ -50,9 +50,9 @@ def city_lights_helper(i, children, building_height, window_heights, idx_to_heig
             power = multiply(power, 2)
     dp[i][:] = tmp
 
-    for h in xrange(1, len(dp[i])):  # O(W) times
+    for h in reversed(xrange(1, len(dp[i]))):  # O(W) times
         if idx_to_height[h] < building_height[i]:
-            continue
+            break
         for b in xrange(len(dp[i][h])-1):  # O(min(S, W)) times
             dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])  # make this node as a new building with height h
             dp[i][h][b] = 0  # no need to keep tracking count on any not-yet-satisfied path

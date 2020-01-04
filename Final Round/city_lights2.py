@@ -25,10 +25,10 @@ def compute_accu(i, dp, dp_accu):
         for b in xrange(len(dp[i][h])):
             dp_accu[i][h+1][b] = add(dp_accu[i][h][b], dp[i][h][b])
  
-def city_lights_helper(i, children, building_height, window_heights, height_to_idx, idx_to_height, dp, dp_accu):
+def city_lights_helper(i, children, building_height, window_heights, idx_to_height, dp, dp_accu):
     dp[i][0][0] = 1
     for c in children[i]:  # O(2) times
-        city_lights_helper(c, children, building_height, window_heights, height_to_idx, idx_to_height, dp, dp_accu)
+        city_lights_helper(c, children, building_height, window_heights, idx_to_height, dp, dp_accu)
         compute_accu(i, dp, dp_accu), compute_accu(c, dp, dp_accu)
         tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
         for h in xrange(len(dp[i])):  # O(W) times
@@ -42,7 +42,7 @@ def city_lights_helper(i, children, building_height, window_heights, height_to_i
     tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
     power = 1
     for j in xrange(len(window_heights[i])+1):  # O(W) times
-        h2 = height_to_idx[window_heights[i][j-1]] if j-1 >= 0 else 0
+        h2 = window_heights[i][j-1] if j-1 >= 0 else 0
         for h in xrange(len(dp[i])):  # O(W) times
             for b in xrange(len(dp[i][h])):  # O(W) times
                 tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])  # count # of combinations
@@ -76,6 +76,14 @@ def city_lights():
     for i in xrange(S):
         S_P[i][Y] = order[S_P[i][Y]]
 
+    w_y_set = set([0])
+    for x, y in W_P:
+        w_y_set.add(y)
+    idx_to_height, height_to_idx = [], {}
+    for i, y in enumerate(sorted(w_y_set)):  # Time: O(WlogW), coordinate compression of y of W
+        idx_to_height.append(y)
+        height_to_idx[y] = i
+
     S_P.sort(key=lambda x: x[Y])  # Time: O(SlogS)
     children = defaultdict(list)
     ordered_set, building_height, lookup = [((float("-inf"), float("inf")), 0)], [1], {}
@@ -95,19 +103,13 @@ def city_lights():
         lookup[x] = c
 
     window_heights = defaultdict(list)
-    w_y_set = set([0])
     for x, y in W_P:  # Time: O(WlogS), group windows by tree nodes
         c = lookup[x] if x in lookup else ordered_set[bisect_left(ordered_set, ((x, float("inf")), float("inf")))-1][1]
-        window_heights[c].append(y)
-        w_y_set.add(y)
-    height_to_idx = {}
-    idx_to_height = []
-    for i, y in enumerate(sorted(w_y_set)):  # Time: O(WlogW), coordinate compression of y of W
-        height_to_idx[y] = i
-        idx_to_height.append(y)
+        window_heights[c].append(height_to_idx[y])
+
     dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(w_y_set))] for _ in xrange(len(building_height))]
     dp_accu = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(w_y_set)+1)] for _ in xrange(len(building_height))]
-    city_lights_helper(0, children, building_height, window_heights, height_to_idx, idx_to_height, dp, dp_accu)  # Time: O(S*W^3)
+    city_lights_helper(0, children, building_height, window_heights, idx_to_height, dp, dp_accu)  # Time: O(S*W^3)
     result = 0
     for i in xrange(1, len(dp[0][0])):  # Time: O(W), compute expected number
         result = add(result, i*dp[0][0][i])

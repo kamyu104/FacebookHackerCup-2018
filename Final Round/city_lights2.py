@@ -61,7 +61,6 @@ def city_lights():
     for i in xrange(S):
         S_P[i]= map(int, raw_input().strip().split())
         y_set.add(S_P[i][Y])
-    max_x = max(map(max, [W_P, S_P]))[X]
     
     order = {}
     for i, y in enumerate(sorted(y_set)):  # Time: O((W+S)log(W+S))
@@ -73,9 +72,9 @@ def city_lights():
 
     S_P.sort(key=lambda x: x[Y])  # Time: O(SlogS)
     children = defaultdict(list)
-    ordered_set, building_heights, lookup = [((0, max_x+1), 0)], [1], {}
+    ordered_set, building_heights, lookup = [((float("-inf"), float("inf")), 0)], [1], {}
     for x, y in S_P:  # Time: O(S^2)
-        (a, b), c = ordered_set[bisect_left(ordered_set, ((x, float("inf")), 0))-1]
+        (a, b), c = ordered_set[bisect_left(ordered_set, ((x, float("inf")), float("inf")))-1]
         if not a <= x <= b:
             continue
         if a < x:
@@ -91,7 +90,7 @@ def city_lights():
 
     window_heights = defaultdict(list)
     for x, y in W_P:  # Time: O(WlogS)
-        c = lookup[x] if x in lookup else ordered_set[bisect_left(ordered_set, ((x, float("inf")), 0))-1][1]
+        c = lookup[x] if x in lookup else ordered_set[bisect_left(ordered_set, ((x, float("inf")), float("inf")))-1][1]
         window_heights[c].append(y)
 
     dp = [[[0 for _ in xrange(len(W_P)+1)] for _ in xrange(len(y_set))] for _ in xrange(len(building_heights))]

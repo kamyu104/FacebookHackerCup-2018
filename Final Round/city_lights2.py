@@ -67,7 +67,7 @@ def city_lights():
         y_set.add(S_P[i][Y])
     
     order = {}
-    for i, y in enumerate(sorted(y_set)):  # Time: O((W+S)log(W+S))
+    for i, y in enumerate(sorted(y_set)):  # Time: O((W+S)log(W+S)), coordinate compression of y
         order[y] = i
     for i in xrange(W):
         W_P[i][Y] = order[W_P[i][Y]]

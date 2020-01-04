@@ -50,7 +50,7 @@ def city_lights_helper(i, children, building_heights, window_heights, dp, dp_acc
             power = multiply(power, 2)
     dp[i][:] = tmp
 
-    for h in xrange(building_heights[i], len(dp[i])):  # O(S) times
+    for h in xrange(building_heights[i], len(dp[i])):  # O(W+S) times
         for b in xrange(len(dp[i][h])-1):  # O(W) times
             dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])  # make this node as a new building with height h
             dp[i][h][b] = 0  # no need to keep tracking count on any not-yet-satisfied path

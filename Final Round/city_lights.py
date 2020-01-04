@@ -123,7 +123,7 @@ def compute_accu(i, dp, dp_accu):
  
 def city_lights_helper(i, children, building_heights, window_heights, dp, dp_accu):
     dp[i][0][0] = 1
-    for c in children[i]:  # O(S) times
+    for c in children[i]:  # O(2) times
         city_lights_helper(c, children, building_heights, window_heights, dp, dp_accu)
         compute_accu(i, dp, dp_accu), compute_accu(c, dp, dp_accu)
         tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
@@ -136,17 +136,17 @@ def city_lights_helper(i, children, building_heights, window_heights, dp, dp_acc
     window_heights[i].sort()
     tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
     power = 1
-    for j in xrange(len(window_heights[i])+1):
+    for j in xrange(len(window_heights[i])+1):  # O(W) times
         h2 = window_heights[i][j-1] if j-1 >= 0 else 0
-        for h in xrange(len(dp[i])):
-            for b in xrange(len(dp[i][h])):
+        for h in xrange(len(dp[i])):  # O(W+S) times
+            for b in xrange(len(dp[i][h])):  # O(W) times
                 tmp[max(h, h2)][b] = add(tmp[max(h, h2)][b], power*dp[i][h][b])
         if j-1 >= 0:
             power *= 2
     dp[i][:] = tmp
 
-    for h in xrange(building_heights[i], len(dp[i])):
-        for b in xrange(len(dp[i][h])-1):
+    for h in xrange(building_heights[i], len(dp[i])):  # O(S) times
+        for b in xrange(len(dp[i][h])-1):  # O(W) times
             dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])
             dp[i][h][b] = 0
 

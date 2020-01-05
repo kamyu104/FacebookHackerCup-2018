@@ -25,10 +25,10 @@ def compute_accu(i, dp, dp_accu):
         for b in xrange(len(dp[i][h])):  # O(min(S, W)) times
             dp_accu[i][h+1][b] = add(dp_accu[i][h][b], dp[i][h][b])
  
-def city_lights_helper(i, children, building_height, window_heights, idx_to_height, dp, dp_accu):
+def city_lights_helper(i, children, building_height, window_heights, dp, dp_accu):
     dp[i][0][0] = 1
     for c in children[i]:  # O(2) times
-        city_lights_helper(c, children, building_height, window_heights, idx_to_height, dp, dp_accu)
+        city_lights_helper(c, children, building_height, window_heights, dp, dp_accu)
         compute_accu(i, dp, dp_accu), compute_accu(c, dp, dp_accu)
         tmp = [[0 for _ in xrange(len(dp[i][h]))] for h in xrange(len(dp[i]))]
         for h in xrange(len(dp[i])):  # O(W) times
@@ -50,9 +50,7 @@ def city_lights_helper(i, children, building_height, window_heights, idx_to_heig
             power = multiply(power, 2)
     dp[i][:] = tmp
 
-    for h in reversed(xrange(1, len(dp[i]))):  # O(W) times
-        if idx_to_height[h] < building_height[i]:
-            break
+    for h in xrange(building_height[i], len(dp[i])):  # O(W) times
         for b in xrange(len(dp[i][h])-1):  # O(min(S, W)) times
             dp[i][0][b+1] = add(dp[i][0][b+1], dp[i][h][b])  # make this node as a new building with height h
             dp[i][h][b] = 0  # no need to keep tracking count on any not-yet-satisfied path
@@ -67,26 +65,25 @@ def city_lights():
     for i in xrange(S):
         S_P[i]= map(int, raw_input().strip().split())
 
-    idx_to_height, height_to_idx = [], {}
-    for i, y in enumerate(sorted(w_y_set)):  # Time: O(WlogW), coordinate compression of y of W
-        idx_to_height.append(y)
+    sorted_w_y, height_to_idx = sorted(w_y_set), {}  # Time: O(WlogW), coordinate compression of y of W
+    for i, y in enumerate(sorted_w_y):
         height_to_idx[y] = i
 
     S_P.sort(key=lambda x: x[Y])  # Time: O(SlogS)
     children = defaultdict(list)
-    ordered_set, building_height, lookup = [((float("-inf"), float("inf")), 0)], [1], {}
-    for x, y in S_P:  # Time: O(S^2), split intervals by x of star in non-decreasing order of y to build up binary tree
+    ordered_set, building_height, lookup = [((float("-inf"), float("inf")), 0)], [bisect_left(sorted_w_y, 1)], {}
+    for x, y in S_P:  # Time: O(S^2 + SlogW), split intervals by x of star in non-decreasing order of y to build up binary tree
         (a, b), c = ordered_set[bisect_left(ordered_set, ((x, float("inf")), float("inf")))-1]
         if not a <= x <= b:
             continue
         if a < x:
             children[c].append(len(building_height))
             ordered_set.insert(bisect_left(ordered_set, ((a, x-1), len(building_height))), ((a, x-1), len(building_height)))
-            building_height.append(y)
+            building_height.append(bisect_left(sorted_w_y, y))
         if b > x:
             children[c].append(len(building_height))
             ordered_set.insert(bisect_left(ordered_set, ((x+1, b), len(building_height))), ((x+1, b), len(building_height)))
-            building_height.append(y)
+            building_height.append(bisect_left(sorted_w_y, y))
         ordered_set.remove(((a, b), c))
         lookup[x] = c
 
@@ -97,7 +94,7 @@ def city_lights():
 
     dp = [[[0 for _ in xrange(min(len(building_height), len(W_P))+1)] for _ in xrange(len(w_y_set))] for _ in xrange(len(building_height))]
     dp_accu = [[[0 for _ in xrange(min(len(building_height), len(W_P))+1)] for _ in xrange(len(w_y_set)+1)] for _ in xrange(len(building_height))]
-    city_lights_helper(0, children, building_height, window_heights, idx_to_height, dp, dp_accu)  # Time: O(S^2*W^2)
+    city_lights_helper(0, children, building_height, window_heights, dp, dp_accu)  # Time: O(S^2*W^2)
     result = 0
     for i in xrange(1, len(dp[0][0])):  # Time: O(min(S, W)), compute expected number
         result = add(result, i*dp[0][0][i])

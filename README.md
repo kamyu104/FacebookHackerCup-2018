@@ -3,7 +3,7 @@
 
 Python solutions of Facebook Hacker Cup 2018. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). A `6-minute` timer is set for uploading the result this year.
 
-* [Hacker Cup 2018](https://github.com/kamyu104/FacebookHackerCup-2018)
+* [Hacker Cup 2017](https://github.com/kamyu104/FacebookHackerCup-2017)
 * [Qualification Round](https://github.com/kamyu104/FacebookHackerCup-2018#qualification-round)
 * [Round 1](https://github.com/kamyu104/FacebookHackerCup-2018#round-1)
 * [Round 2](https://github.com/kamyu104/FacebookHackerCup-2018#round-2)
